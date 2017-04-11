@@ -7,11 +7,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  * Created by Stas on 11.04.2017.
  */
 
-public class DragDropHelperCallBack extends ItemTouchHelper.Callback {
+public class DragDropItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final DragDropAdapter mAdapter;
 
-    public DragDropHelperCallBack(DragDropAdapter adapter) {
+    public DragDropItemTouchHelper(DragDropAdapter adapter) {
         mAdapter = adapter;
     }
 
@@ -33,8 +33,7 @@ public class DragDropHelperCallBack extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                          RecyclerView.ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,  RecyclerView.ViewHolder target) {
         mAdapter.onItemMoving(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }

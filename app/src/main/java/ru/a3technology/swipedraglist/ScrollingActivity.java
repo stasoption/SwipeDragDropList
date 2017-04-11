@@ -43,8 +43,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         DragDropAdapter adapter = new DragDropAdapter();
 
-        ItemTouchHelper.Callback callback =
-                new DragDropHelperCallBack(adapter);
+        ItemTouchHelper.Callback callback = new DragDropItemTouchHelper(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 

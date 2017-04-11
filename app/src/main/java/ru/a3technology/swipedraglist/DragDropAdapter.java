@@ -1,6 +1,7 @@
 package ru.a3technology.swipedraglist;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,7 @@ import java.util.List;
  * Created by Stas on 11.04.2017.
  */
 
-public class DragDropAdapter extends
-        RecyclerView.Adapter<DragDropViewHolder>
-        implements OnDragDropListener {
-
+class DragDropAdapter extends RecyclerView.Adapter<DragDropViewHolder> implements  OnDragDropListener{
 
 
     private static final String[] STRINGS = new String[]{
@@ -26,19 +24,18 @@ public class DragDropAdapter extends
 
     private final List<String> mItems = new ArrayList<>();
 
-    public DragDropAdapter() {
+    DragDropAdapter() {
         mItems.addAll(Arrays.asList(STRINGS));
     }
 
     @Override
     public DragDropViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
-
         return new DragDropViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DragDropViewHolder holder, int position) {
+    public void onBindViewHolder(DragDropViewHolder holder, final int position) {
         holder.textView.setText(mItems.get(position));
     }
 
@@ -50,6 +47,8 @@ public class DragDropAdapter extends
 
     @Override
     public boolean onItemMoving(int fromPosition, int toPosition) {
+
+
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mItems, i, i + 1);
@@ -62,4 +61,5 @@ public class DragDropAdapter extends
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
 }
