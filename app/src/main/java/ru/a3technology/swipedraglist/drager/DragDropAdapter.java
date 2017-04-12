@@ -1,5 +1,6 @@
 package ru.a3technology.swipedraglist.drager;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import ru.a3technology.swipedraglist.intefaces.OnDragDropListener;
 import ru.a3technology.swipedraglist.intefaces.SwipeAdapterInterface;
 import ru.a3technology.swipedraglist.intefaces.SwipeItemMangerInterface;
 import ru.a3technology.swipedraglist.swiper.Attributes;
-import ru.a3technology.swipedraglist.swiper.SwipeItemMangerImpl;
+import ru.a3technology.swipedraglist.swiper.SwipeItemManager;
 import ru.a3technology.swipedraglist.swiper.SwipeLayout;
 
 /**
@@ -27,7 +28,7 @@ import ru.a3technology.swipedraglist.swiper.SwipeLayout;
 public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
         implements OnDragDropListener, SwipeItemMangerInterface, SwipeAdapterInterface {
 
-    private SwipeItemMangerImpl mSwipeManager = new SwipeItemMangerImpl(this);
+    private SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
     private final List<String> mItems = new ArrayList<>();
 
@@ -36,13 +37,14 @@ public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHo
     };
 
     class ViewHolder extends RecyclerView.ViewHolder{
+        CardView mCardView;
         SwipeLayout mSwipeLayout;
         LinearLayout bottom_wrapper;
         TextView textView;
 
         ViewHolder(View itemView) {
             super(itemView);
-
+            mCardView = (CardView)itemView.findViewById(R.id.cardView);
             mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.mSwipeLayout);
             bottom_wrapper = (LinearLayout)itemView.findViewById(R.id.bottom_wrapper);
             textView = (TextView) itemView.findViewById(R.id.text);
@@ -62,13 +64,18 @@ public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-//        holder.mSwipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut); /*PullOut*//*LayDown*/
-        holder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Left, holder.bottom_wrapper);
-        holder.textView.setText(mItems.get(position));
-
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         try {
+            holder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Left, holder.bottom_wrapper);
             mSwipeManager.bind(holder.mSwipeLayout, position);
+
+            holder.textView.setText(mItems.get(position));
+            holder.mCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSwipeManager.closeAllItems();
+                }
+            });
         } catch (Exception mE) {
             mE.printStackTrace();
         }
@@ -82,9 +89,9 @@ public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHo
 
     @Override
     public boolean onItemMoving(int fromPosition, int toPosition) {
-
+        /*close all item when start moving*/
             mSwipeManager.closeAllItems();
-
+        /*moving items and change position in the array*/
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mItems, i, i + 1);
@@ -94,6 +101,7 @@ public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHo
                 Collections.swap(mItems, i, i - 1);
             }
         }
+        /*updating the RecyclerView*/
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }

@@ -13,7 +13,7 @@ import ru.a3technology.swipedraglist.intefaces.SwipeItemMangerInterface;
  * Created by Stas on 12.04.2017.
  */
 
-public class SwipeItemMangerImpl implements SwipeItemMangerInterface {
+public class SwipeItemManager implements SwipeItemMangerInterface {
 
     private Attributes.Mode mode = Attributes.Mode.Single;
     private final int INVALID_POSITION = -1;
@@ -25,7 +25,7 @@ public class SwipeItemMangerImpl implements SwipeItemMangerInterface {
 
     private SwipeAdapterInterface swipeAdapterInterface;
 
-    public SwipeItemMangerImpl(SwipeAdapterInterface swipeAdapterInterface) {
+    public SwipeItemManager(SwipeAdapterInterface swipeAdapterInterface) {
         if (swipeAdapterInterface == null)
             throw new IllegalArgumentException("SwipeAdapterInterface can not be null");
 
