@@ -13,18 +13,21 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ScrollingActivity extends AppCompatActivity {
+import ru.a3technology.swipedraglist.drager.DragDropAdapter;
+import ru.a3technology.swipedraglist.drager.DragTouchHelper;
+
+public class MainActivity extends AppCompatActivity {
 
     private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mContext = ScrollingActivity.this;
+        mContext = MainActivity.this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +45,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         DragDropAdapter adapter = new DragDropAdapter();
 
-        ItemTouchHelper.Callback callback = new DragDropItemTouchHelper(adapter);
+        ItemTouchHelper.Callback callback = new DragTouchHelper(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 

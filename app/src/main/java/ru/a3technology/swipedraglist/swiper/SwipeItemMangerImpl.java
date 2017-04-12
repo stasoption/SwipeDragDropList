@@ -1,7 +1,4 @@
-package ru.a3technology.swipedraglist;
-
-import android.util.Log;
-import android.view.View;
+package ru.a3technology.swipedraglist.swiper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,14 +16,14 @@ import ru.a3technology.swipedraglist.intefaces.SwipeItemMangerInterface;
 public class SwipeItemMangerImpl implements SwipeItemMangerInterface {
 
     private Attributes.Mode mode = Attributes.Mode.Single;
-    public final int INVALID_POSITION = -1;
+    private final int INVALID_POSITION = -1;
 
-    protected int mOpenPosition = INVALID_POSITION;
+    private int mOpenPosition = INVALID_POSITION;
 
-    protected Set<Integer> mOpenPositions = new HashSet<Integer>();
-    protected Set<SwipeLayout> mShownLayouts = new HashSet<SwipeLayout>();
+    private Set<Integer> mOpenPositions = new HashSet<>();
+    private Set<SwipeLayout> mShownLayouts = new HashSet<>();
 
-    protected SwipeAdapterInterface swipeAdapterInterface;
+    private SwipeAdapterInterface swipeAdapterInterface;
 
     public SwipeItemMangerImpl(SwipeAdapterInterface swipeAdapterInterface) {
         if (swipeAdapterInterface == null)

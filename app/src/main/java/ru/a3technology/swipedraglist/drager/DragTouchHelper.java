@@ -1,17 +1,18 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.drager;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
 
 /**
  * Created by Stas on 11.04.2017.
  */
 
-public class DragDropItemTouchHelper extends ItemTouchHelper.Callback {
+public class DragTouchHelper extends ItemTouchHelper.Callback {
 
     private final DragDropAdapter mAdapter;
 
-    public DragDropItemTouchHelper(DragDropAdapter adapter) {
+    public DragTouchHelper(DragDropAdapter adapter) {
         mAdapter = adapter;
     }
 

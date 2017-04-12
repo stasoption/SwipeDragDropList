@@ -1,10 +1,10 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.drager;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,14 +12,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import ru.a3technology.swipedraglist.R;
+import ru.a3technology.swipedraglist.intefaces.OnDragDropListener;
 import ru.a3technology.swipedraglist.intefaces.SwipeAdapterInterface;
 import ru.a3technology.swipedraglist.intefaces.SwipeItemMangerInterface;
+import ru.a3technology.swipedraglist.swiper.Attributes;
+import ru.a3technology.swipedraglist.swiper.SwipeItemMangerImpl;
+import ru.a3technology.swipedraglist.swiper.SwipeLayout;
 
 /**
  * Created by Stas on 11.04.2017.
  */
 
-class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
+public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
         implements OnDragDropListener, SwipeItemMangerInterface, SwipeAdapterInterface {
 
     private SwipeItemMangerImpl mSwipeManager = new SwipeItemMangerImpl(this);
@@ -27,23 +32,25 @@ class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
     private final List<String> mItems = new ArrayList<>();
 
     private static final String[] STRINGS = new String[]{
-            "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"
+            "I am FIRST item", "I am SECOND item", "I am THIRD item", "I am FOURTH item", "I am FIFTH item"
     };
 
     class ViewHolder extends RecyclerView.ViewHolder{
         SwipeLayout mSwipeLayout;
+        LinearLayout bottom_wrapper;
         TextView textView;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.mSwipeLayout);
+            bottom_wrapper = (LinearLayout)itemView.findViewById(R.id.bottom_wrapper);
             textView = (TextView) itemView.findViewById(R.id.text);
         }
     }
 
 
-    DragDropAdapter() {
+    public DragDropAdapter() {
         mItems.addAll(Arrays.asList(STRINGS));
         mSwipeManager.setMode(Attributes.Mode.Single);
     }
@@ -57,6 +64,7 @@ class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 //        holder.mSwipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut); /*PullOut*//*LayDown*/
+        holder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Left, holder.bottom_wrapper);
         holder.textView.setText(mItems.get(position));
 
         try {

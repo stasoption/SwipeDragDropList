@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.swiper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import ru.a3technology.swipedraglist.R;
 
 /**
  * Created by Stas on 21.03.2017.
