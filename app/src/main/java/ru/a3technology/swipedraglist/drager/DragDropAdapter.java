@@ -28,6 +28,7 @@ import ru.a3technology.swipedraglist.swiper.SwipeLayout;
 public class DragDropAdapter extends RecyclerView.Adapter<DragDropAdapter.ViewHolder>
         implements OnDragDropListener, SwipeItemMangerInterface, SwipeAdapterInterface {
 
+    //manager for items direction when swiping
     private SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
     private final List<String> mItems = new ArrayList<>();

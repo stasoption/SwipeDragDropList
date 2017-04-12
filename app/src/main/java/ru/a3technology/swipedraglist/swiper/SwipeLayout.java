@@ -391,6 +391,10 @@ public class SwipeLayout extends FrameLayout {
         }
     };
 
+
+
+
+
     /**
      * save children's bounds, so they can restore the bound in {@link #onLayout(boolean, int, int, int, int)}
      */
@@ -1567,7 +1571,6 @@ public class SwipeLayout extends FrameLayout {
         } else if (mShowMode == ShowMode.LayDown) {
             layoutLayDown();
         }
-
         safeBottomView();
     }
 }

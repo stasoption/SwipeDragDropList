@@ -27,8 +27,7 @@
             android:id="@+id/option_1"
             android:src="@android:drawable/ic_media_previous"
             android:tint="@android:color/white"
-            android:background="@color/color_option_1"
-            android:clickable="true"/>
+            android:background="@color/color_option_1"/>
 
         <ImageButton
             android:layout_width="?attr/listPreferredItemHeight"
@@ -38,8 +37,7 @@
             android:id="@+id/option_2"
             android:src="@android:drawable/ic_media_play"
             android:tint="@android:color/white"
-            android:background="@color/color_option_2"
-            android:clickable="true"/>
+            android:background="@color/color_option_2"/>
 
         <ImageButton
             android:layout_width="?attr/listPreferredItemHeight"
@@ -49,8 +47,7 @@
             android:id="@+id/option_3"
             android:src="@android:drawable/ic_media_next"
             android:tint="@android:color/white"
-            android:background="@color/color_option_3"
-            android:clickable="true"/>
+            android:background="@color/color_option_3"/>
 
     </LinearLayout>
     <!-- Bottom View End-->
