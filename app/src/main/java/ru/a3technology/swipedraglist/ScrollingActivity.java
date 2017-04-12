@@ -36,7 +36,6 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
 
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));

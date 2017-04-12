@@ -1,10 +1,12 @@
 package ru.a3technology.swipedraglist;
 
+import android.support.v7.widget.RecyclerView;
+
 /**
  * Created by Stas on 11.04.2017.
  */
 
-public interface OnDragDropListener {
+interface OnDragDropListener {
     /**
      * Called when an item has been dragged far enough to trigger a move.
      * @param fromPosition The start position of the moved item.
