@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist.swiper;
+package ru.a3technology.swipedragdroplist.swiper;
 
 /**
  * Created by Stas on 12.04.2017.

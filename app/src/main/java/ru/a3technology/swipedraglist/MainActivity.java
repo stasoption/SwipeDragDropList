@@ -21,11 +21,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ru.a3technology.swipedraglist.adapters.GenericAdapter;
-import ru.a3technology.swipedraglist.drager.GenericTouchHelper;
-import ru.a3technology.swipedraglist.swiper.Attributes;
-import ru.a3technology.swipedraglist.swiper.SwipeItemManager;
-import ru.a3technology.swipedraglist.swiper.SwipeLayout;
+import ru.a3technology.swipedragdroplist.adapters.GenericAdapter;
+import ru.a3technology.swipedragdroplist.drager.GenericTouchHelper;
+import ru.a3technology.swipedragdroplist.swiper.Attributes;
+import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
+import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
+
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -37,20 +38,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         mContext = MainActivity.this;
 
-//        String[] STRINGS = new String[]{
-//            "I am FIRST item", "I am SECOND item", "I am THIRD item", "I am FOURTH item", "I am FIFTH item"
-//    };
-//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-//
-//        DragDropAdapter adapter = new DragDropAdapter(Arrays.asList(STRINGS));
-//        adapter.setOnSwipeDragDropDirection(this);
-//        ItemTouchHelper.Callback callback = new DragTouchHelper(adapter);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(recyclerView);
-//        recyclerView.setAdapter(adapter);
-
         ArrayList<User> mUserArrayList = new ArrayList<User>();
         mUserArrayList.add(new User("Stas", "Averin", 31));
         mUserArrayList.add(new User("Peter", "Parker", 21));
@@ -58,21 +45,21 @@ public class MainActivity extends AppCompatActivity  {
         mUserArrayList.add(new User("Sarra", "Conner", 45));
 
 
-        GenericAdapter<User> genAdapter = new GenericAdapter<User>(mContext, mUserArrayList) {
-            SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
+
+        GenericAdapter<User> genAdapter = new GenericAdapter<User>(mContext, mUserArrayList) {
+            private final SwipeItemManager mSwipeManager = getSwipeItemManager();
 
             @Override
-            public RecyclerView.ViewHolder setViewHolder(ViewGroup parent, OnRecyclerItemClicked onRecyclerItemClicked) {
+            public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
-                return new UserViewHolder(mContext, view, onRecyclerItemClicked);
+                return new UserViewHolder(view);
             }
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, int position) {
                 UserViewHolder mUserViewHolder = (UserViewHolder)holder;
                 User user = (User)val;
 
-                mSwipeManager.setMode(Attributes.Mode.Single);
                 try {
                     mUserViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Left, mUserViewHolder.bottom_wrapper);
                     mSwipeManager.bind(mUserViewHolder.mSwipeLayout, position);
@@ -108,15 +95,7 @@ public class MainActivity extends AppCompatActivity  {
                     mE.printStackTrace();
                 }
             }
-            @Override
-            public OnRecyclerItemClicked onGetRecyclerItemClickListener() {
-                return new GenericAdapter.OnRecyclerItemClicked() {
-                    @Override
-                    public void onItemClicked(View view, int position) {
-                        Log.e("onItemClicked", String.valueOf(position));
-                    }
-                };
-            }
+
             @Override
             public boolean onItemMoving(int fromPosition, int toPosition) {
                 /*close all item when start moving*/
@@ -136,8 +115,6 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
 
-
-
             @Override
             public int getSwipeLayoutResourceId(int position) {
                 return 0;
@@ -145,7 +122,6 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public void notifyDatasetChanged() {
-
             }
 
             @Override
@@ -206,7 +182,6 @@ public class MainActivity extends AppCompatActivity  {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(genAdapter);
-
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder{
@@ -217,7 +192,7 @@ public class MainActivity extends AppCompatActivity  {
 
         public ImageView action_1, action_2, action_3;
 
-        UserViewHolder(Context context, View itemView, GenericAdapter.OnRecyclerItemClicked onRecyclerItemClicked) {
+        UserViewHolder(View itemView) {
             super(itemView);
             mCardView = (CardView)itemView.findViewById(R.id.cardView);
             mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.mSwipeLayout);

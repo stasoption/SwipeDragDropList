@@ -1,9 +1,10 @@
-package ru.a3technology.swipedraglist.drager;
+package ru.a3technology.swipedragdroplist.drager;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import ru.a3technology.swipedraglist.adapters.GenericAdapter;
+import ru.a3technology.swipedragdroplist.adapters.GenericAdapter;
+
 
 /**
  * Created by Stas on 21.04.2017.

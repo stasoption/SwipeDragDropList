@@ -1,9 +1,10 @@
-package ru.a3technology.swipedraglist.intefaces;
+package ru.a3technology.swipedragdroplist.intefaces;
 
 import java.util.List;
 
-import ru.a3technology.swipedraglist.swiper.SwipeLayout;
-import ru.a3technology.swipedraglist.swiper.Attributes;
+import ru.a3technology.swipedragdroplist.swiper.Attributes;
+import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
+
 
 /**
  * Created by Stas on 12.04.2017.

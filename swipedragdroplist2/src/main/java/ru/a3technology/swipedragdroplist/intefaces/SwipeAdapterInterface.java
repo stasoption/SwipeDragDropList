@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist.intefaces;
+package ru.a3technology.swipedragdroplist.intefaces;
 
 /**
  * Created by Stas on 12.04.2017.

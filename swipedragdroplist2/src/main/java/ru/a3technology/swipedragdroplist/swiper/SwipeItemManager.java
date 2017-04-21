@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist.swiper;
+package ru.a3technology.swipedragdroplist.swiper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ru.a3technology.swipedraglist.intefaces.SwipeAdapterInterface;
-import ru.a3technology.swipedraglist.intefaces.SwipeItemMangerInterface;
+import ru.a3technology.swipedragdroplist.intefaces.SwipeAdapterInterface;
+import ru.a3technology.swipedragdroplist.intefaces.SwipeItemMangerInterface;
+
 
 /**
  * Created by Stas on 12.04.2017.

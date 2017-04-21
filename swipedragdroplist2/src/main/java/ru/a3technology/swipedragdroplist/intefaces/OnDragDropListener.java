@@ -1,6 +1,4 @@
-package ru.a3technology.swipedraglist.intefaces;
-
-import android.support.v7.widget.RecyclerView;
+package ru.a3technology.swipedragdroplist.intefaces;
 
 /**
  * Created by Stas on 11.04.2017.

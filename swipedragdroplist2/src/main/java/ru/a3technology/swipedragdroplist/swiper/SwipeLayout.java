@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist.swiper;
+package ru.a3technology.swipedragdroplist.swiper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -26,7 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.a3technology.swipedraglist.R;
+import ru.a3technology.swipedragdroplist.R;
+
 
 /**
  * Created by Stas on 21.03.2017.
@@ -89,6 +90,7 @@ public class SwipeLayout extends FrameLayout {
         super(context, attrs, defStyle);
         mDragHelper = ViewDragHelper.create(this, mDragHelperCallback);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SwipeLayout);
         int dragEdgeChoices = a.getInt(R.styleable.SwipeLayout_drag_edge, DRAG_RIGHT);
