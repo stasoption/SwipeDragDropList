@@ -67,7 +67,7 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
 ```
 
 **Next, you should add your custom ViewHolder for RecyclerView.Adapter**<br />
-for example, used the ViewHolder for class User:
+
 ```
 public class YourCustomViewHolder extends RecyclerView.ViewHolder{
     
