@@ -84,35 +84,28 @@ public class SwipeDragDropListDirection {
                             @Override
                             public void onClick(View v) {
                                 mSwipeManager.closeAllItems();
-                                mDirection.onClickItem();
-
-                                Toast.makeText(mContext, "Picked user: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
-
+                                if(mDirection!=null)mDirection.onClickItem(user);
                             }
                         });
 
                         mUserViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mDirection.onActionLeftButton();
-
-                                Toast.makeText(mContext, "Button_1 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                                if(mDirection!=null)mDirection.onActionLeftButton();
                             }
                         });
 
                         mUserViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mDirection.onActionCenterButton();
-                                Toast.makeText(mContext, "Button_2 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                                if(mDirection!=null)mDirection.onActionCenterButton();
                             }
                         });
 
                         mUserViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mDirection.onActionRightButton();
-                                Toast.makeText(mContext, "Button_3 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                                if(mDirection!=null)mDirection.onActionRightButton();
                             }
                         });
                     } catch (Exception mE) {
@@ -123,10 +116,9 @@ public class SwipeDragDropListDirection {
 
             @Override
             public boolean onItemMoving(int fromPosition, int toPosition) {
+                /*moving items and change position in the array*/
                 /*close all item when start moving*/
                 mSwipeManager.closeAllItems();
-                mDirection.onItemMoved(fromPosition, toPosition);
-                /*moving items and change position in the array*/
                 if (fromPosition < toPosition) {
                     for (int i = fromPosition; i < toPosition; i++) {
                         Collections.swap(getList(), i, i + 1);
@@ -138,6 +130,7 @@ public class SwipeDragDropListDirection {
                 }
                 /*updating the RecyclerView*/
                 notifyItemMoved(fromPosition, toPosition);
+                if(mDirection!=null)mDirection.onItemMoved(fromPosition, toPosition);
                 return true;
             }
 

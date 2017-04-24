@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,31 +31,32 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
         mUserArrayList.add(new User("Ralph", "Washington", "ralph_washington@gmail.com", 41, 1));
 
         SwipeDragDropListDirection mSwipeDragDropListDirection = new SwipeDragDropListDirection(mContext);
+        mSwipeDragDropListDirection.setOnSwipeDragDropListDirection(this);
         mSwipeDragDropListDirection.show(mUserArrayList);
     }
 
     @Override
-    public void onClickItem() {
-        Log.e("onClickItem", "onClickItem");
+    public void onClickItem(User user) {
+        Toast.makeText(mContext, "Picked user: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemMoved(int fromPosition, int toPosition) {
-        Log.e("onItemMoved", fromPosition + " " + toPosition);
+        Log.i("onItemMoved", fromPosition + " " + toPosition);
     }
 
     @Override
     public void onActionLeftButton() {
-        Log.e("onActionLeftButton", "onActionLeftButton");
+        Toast.makeText(mContext, "Button_1 clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onActionCenterButton() {
-        Log.e("onActionCenterButton", "onActionCenterButton");
+        Toast.makeText(mContext, "Button_2 clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onActionRightButton() {
-        Log.e("onActionRightButton", "onActionRightButton");
+        Toast.makeText(mContext, "Button_3 clicked", Toast.LENGTH_SHORT).show();
     }
 }
