@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.Example;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
+
+import ru.a3technology.swipedraglist.interfaces.OnSwipeDragDropListDirection;
+import ru.a3technology.swipedraglist.R;
+import ru.a3technology.swipedraglist.Model.User;
 
 
 public class MainActivity extends AppCompatActivity implements OnSwipeDragDropListDirection {

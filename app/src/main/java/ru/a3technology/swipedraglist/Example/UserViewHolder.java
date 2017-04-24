@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.Example;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
+import ru.a3technology.swipedraglist.R;
 
 /**
  * Created by Stas on 21.04.2017.

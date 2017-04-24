@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.Example;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,9 @@ import ru.a3technology.swipedragdroplist.drager.GenericTouchHelper;
 import ru.a3technology.swipedragdroplist.swiper.Attributes;
 import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
 import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
+import ru.a3technology.swipedraglist.R;
+import ru.a3technology.swipedraglist.Model.User;
+import ru.a3technology.swipedraglist.interfaces.OnSwipeDragDropListDirection;
 
 /**
  * Created by Stas on 21.04.2017.
@@ -28,6 +30,11 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
 public class SwipeDragDropListDirection {
 
     private Context mContext;
+    private OnSwipeDragDropListDirection mDirection;
+
+    public void setOnSwipeDragDropListDirection(OnSwipeDragDropListDirection direction){
+        this.mDirection = direction;
+    }
 
     public SwipeDragDropListDirection(Context context){
         mContext = context;
@@ -77,6 +84,7 @@ public class SwipeDragDropListDirection {
                             @Override
                             public void onClick(View v) {
                                 mSwipeManager.closeAllItems();
+                                mDirection.onClickItem();
 
                                 Toast.makeText(mContext, "Picked user: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
 
@@ -86,6 +94,7 @@ public class SwipeDragDropListDirection {
                         mUserViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                mDirection.onActionLeftButton();
 
                                 Toast.makeText(mContext, "Button_1 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
                             }
@@ -94,6 +103,7 @@ public class SwipeDragDropListDirection {
                         mUserViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                mDirection.onActionCenterButton();
                                 Toast.makeText(mContext, "Button_2 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -101,6 +111,7 @@ public class SwipeDragDropListDirection {
                         mUserViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                mDirection.onActionRightButton();
                                 Toast.makeText(mContext, "Button_3 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -114,6 +125,7 @@ public class SwipeDragDropListDirection {
             public boolean onItemMoving(int fromPosition, int toPosition) {
                 /*close all item when start moving*/
                 mSwipeManager.closeAllItems();
+                mDirection.onItemMoved(fromPosition, toPosition);
                 /*moving items and change position in the array*/
                 if (fromPosition < toPosition) {
                     for (int i = fromPosition; i < toPosition; i++) {

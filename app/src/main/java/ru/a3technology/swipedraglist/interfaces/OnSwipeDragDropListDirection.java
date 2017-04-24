@@ -1,4 +1,4 @@
-package ru.a3technology.swipedraglist;
+package ru.a3technology.swipedraglist.interfaces;
 
 /**
  * Created by Stas on 21.04.2017.
