@@ -52,7 +52,7 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
 </ru.a3technology.swipedragdroplist.swiper.SwipeLayout>
 ```
 
-**Next, you should add your custom ViewHolder for RecyclerView.Adapter**<br />
+**Next, you should create your custom ViewHolder for RecyclerView.Adapter**<br />
 
 ```
 public class YourCustomViewHolder extends RecyclerView.ViewHolder{
