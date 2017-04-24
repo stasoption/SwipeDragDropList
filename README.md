@@ -5,11 +5,10 @@
 # How to use:
 **First**<br />
 SwipeDragDropList uses the code from this library: [AndroidSwipeLayout](https://github.com/daimajia/AndroidSwipeLayout/) <br />
-Еhus, the XML file of the item for recyclerView, must have : **SwipeLayout** as the main element.
-in the BottomView and the SurfaceView of the SwipeLayout you should to add a code you needed: 
+So, the XML file of the item for recyclerView must have **SwipeLayout** as the main element. in the BottomView and the SurfaceView of the SwipeLayout you should add a code you needed:
 
 ```
-<!-- SwipeLayout - the main item. It's very important! -->
+<!-- SwipeLayout is the main item. It's very important -->
 <?xml version="1.0" encoding="utf-8"?>
 <ru.a3technology.swipedragdroplist.swiper.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
