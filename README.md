@@ -69,30 +69,13 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
 **Next, you should add your custom ViewHolder for RecyclerView.Adapter**<br />
 for example, used the ViewHolder for class User:
 ```
-public class UserViewHolder extends RecyclerView.ViewHolder{
-
-    public CardView mCardView;
-    public CardView cvButton_1, cvButton_2, cvButton_3;
-    public SwipeLayout mSwipeLayout;
-    public LinearLayout bottom_wrapper;
+public class YourCustomViewHolder extends RecyclerView.ViewHolder{
     
-    public TextView tvCounter, tvTitle, tvTitleDescription, tvSubTitleDescription, tvStatus;
-
-    UserViewHolder(View itemView) {
+    YourView yourView;
+   
+    YourCustomViewHolder(View itemView) {
         super(itemView);
-        mCardView = (CardView)itemView.findViewById(R.id.cardView);
-        cvButton_1 = (CardView) itemView.findViewById(R.id.cvButton_1);
-        cvButton_2 = (CardView) itemView.findViewById(R.id.cvButton_2);
-        cvButton_3 = (CardView) itemView.findViewById(R.id.cvButton_3);
-
-        mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.mSwipeLayout);
-        bottom_wrapper = (LinearLayout)itemView.findViewById(R.id.bottom_wrapper);
-
-        tvCounter = (TextView) itemView.findViewById(R.id.tvCounter);
-        tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        tvTitleDescription = (TextView) itemView.findViewById(R.id.tvTitleDescription);
-        tvSubTitleDescription = (TextView) itemView.findViewById(R.id.tvSubTitleDescription);
-        tvStatus = (TextView) itemView.findViewById(R.id.tvStatus);
+        yourView = (YourView)itemView.findViewById(R.id.yourViewId);
     }
 }
 
@@ -100,7 +83,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
 **And Last, overriding the Generic adapter for your class:**
 ```
         // Overriding with the class you needed
-          GenericAdapter<YOUR_CALSS> genAdapter = new GenericAdapter<User>(mContext, new ArrayList<YOUR_CALSS>) {
+          GenericAdapter<YOUR_CALSS> genAdapter = new GenericAdapter<YOUR_CALSS>(mContext, new ArrayList<YOUR_CALSS>) {
             // initialize the SwipeItemManager for swipe managing
             private final SwipeItemManager mSwipeManager = getSwipeItemManager(); 
          
@@ -108,14 +91,14 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
                 // Your xml file, (item for RecyclerView)
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
-                return new UserViewHolder(view);
+                return new YourCustomViewHolder(view);
             }
 
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
-                UserViewHolder mUserViewHolder = (UserViewHolder)holder;
-                final User user = (User)val;
+            public void onBindData(RecyclerView.ViewHolder holder, YOUR_CALSS val, final int position) {
+                YourCustomViewHolder viewHolder = (YourCustomViewHolder)holder;
+                YOUR_CALSS yourClass = (YOUR_CALSS)val;
                 
                 // using onBindData as simple onBindViewHolder in the RecyclerView.Adapter
             }
