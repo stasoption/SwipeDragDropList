@@ -4,8 +4,8 @@
 
 # How to use:
 **First**<br />
-SwipeDragDropList uses the code from this library: [daimajia/AndroidSwipeLayout](https://github.com/daimajia/AndroidSwipeLayout/)
-Еhus, the XML file of the item for recyclerView, must have : #SwipeLayout as the main element.
+SwipeDragDropList uses the code from this library: [AndroidSwipeLayout](https://github.com/daimajia/AndroidSwipeLayout/) <br />
+Еhus, the XML file of the item for recyclerView, must have : **SwipeLayout** as the main element.
 in the BottomView and the SurfaceView of the SwipeLayout you should to add a code you needed: 
 
 ```
@@ -16,9 +16,7 @@ in the BottomView and the SurfaceView of the SwipeLayout you should to add a cod
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mSwipeLayout"
-    android:focusableInTouchMode="false"
-    android:clickable="false">
+    android:id="@+id/mSwipeLayout">
 
     <!-- BottomView Start-->
     <!-- BottomView included some views when the user swiped SurfaceView-->
@@ -27,66 +25,9 @@ in the BottomView and the SurfaceView of the SwipeLayout you should to add a cod
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:focusable="false">
+        android:weightSum="1">
 
-        <!--content for BottomView-->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvButton_1"
-            style="@style/DragDropCardView">
-
-            <LinearLayout
-                style="@style/DragDropLinear"
-                android:background="@color/color_option_2">
-                <ImageView
-                    style="@style/DragDropIcon"
-                    android:src="@android:drawable/ic_menu_call"
-                    android:id="@+id/img_button_1_go_to_sender_or_getter"/>
-                <TextView
-                    android:text="Action #1"
-                    android:id="@+id/tv_button_1_go_to_sender_or_getter"
-                    style="@style/DragDropTextView"/>
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvButton_2"
-            style="@style/DragDropCardView">
-            <LinearLayout
-                style="@style/DragDropLinear"
-                android:background="@color/color_option_2">
-                <ImageView
-                    style="@style/DragDropIcon"
-                    android:src="@android:drawable/ic_dialog_email"
-                    android:id="@+id/img_button_2_go_to_sender_or_getter"/>
-                <TextView
-                    style="@style/DragDropTextView"
-                    android:text="Action #2"
-                    android:id="@+id/tv_button_2_go_to_sender_or_getter"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvButton_3"
-            style="@style/DragDropCardView">
-            <LinearLayout
-                style="@style/DragDropLinear"
-                android:background="@color/color_option_3">
-                <ImageView
-                    style="@style/DragDropIcon"
-                    android:src="@android:drawable/ic_menu_delete"
-                    android:id="@+id/img_button_3_go_to_sender_or_getter"/>
-                <TextView
-                    style="@style/DragDropTextView"
-                    android:text="Action #3"
-                    android:id="@+id/tv_button_3_go_to_sender_or_getter"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <!--Here your content for BottomView-->
 
     </LinearLayout>
     <!-- BottomView End-->
@@ -96,11 +37,7 @@ in the BottomView and the SurfaceView of the SwipeLayout you should to add a cod
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:focusable="false"
-        android:visibility="visible">
+        android:orientation="horizontal"">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
@@ -113,84 +50,17 @@ in the BottomView and the SurfaceView of the SwipeLayout you should to add a cod
             card_view:cardCornerRadius="0dp"
             card_view:cardElevation="1dp"
             android:clickable="true">
-
-            <!--content for SurfaceView-->
+            
             <LinearLayout
                 android:id="@+id/ll_holder_view"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tvCounter"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:textColor="@android:color/white"
-                    android:text="1"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/circle_counter"
-                    android:gravity="center"
-                    android:layout_marginLeft="16dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <!--TITLE-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin">
-
-                        <TextView
-                            android:id="@+id/tvTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"
-                            android:text="Some title"/>
-
-                        <TextView
-                            android:id="@+id/tvTitleDescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="10sp"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-                    </LinearLayout>
-
-
-                    <!--SUB TITLE-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin">
-
-
-                        <TextView
-                            android:id="@+id/tvSubTitleDescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sub Title description"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:padding="@dimen/mid_margin"
-                    android:text="Online"/>
+                
+                <!--Here your content for SurfaceView-->
+                
             </LinearLayout>
-            <!--end content for SurfaceView-->
         </android.support.v7.widget.CardView>
     </LinearLayout>
     <!-- SurfaceView End -->
@@ -206,7 +76,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
     public CardView cvButton_1, cvButton_2, cvButton_3;
     public SwipeLayout mSwipeLayout;
     public LinearLayout bottom_wrapper;
-
+    
     public TextView tvCounter, tvTitle, tvTitleDescription, tvSubTitleDescription, tvStatus;
 
     UserViewHolder(View itemView) {
@@ -230,96 +100,25 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
 ```
 **And Last, overriding the Generic adapter for your class:
 ```
-              ArrayList<User> mUserArrayList = new ArrayList<>();
-              mUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
-              mUserArrayList.add(new User("Connie", "Williams", "cwilliams@gmail.com", 29, 0));
-              mUserArrayList.add(new User("Peter", "Parker", "peter@gmail.com", 24, 0));
-              mUserArrayList.add(new User("Patricia", "Wong", "pwong@gmail.com", 28, 1));
-              mUserArrayList.add(new User("Billy", "Martinez", "bmartinez@gmail.com", 45, 0));
-              mUserArrayList.add(new User("Ralph", "Washington", "ralph_washington@gmail.com", 41, 1));
-        
         // Overriding with the class you needed
-          GenericAdapter<User> genAdapter = new GenericAdapter<User>(mContext, mUserArrayList) {
-       
+          GenericAdapter<YOUR_CALSS> genAdapter = new GenericAdapter<User>(mContext, new ArrayList<YOUR_CALSS>) {
+            // initialize the SwipeItemManager for swipe managing
             private final SwipeItemManager mSwipeManager = getSwipeItemManager(); 
-
-             /**
-             * Here you xml file, item for RecyclerView.
-             */
+         
             @Override
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
+                // Your xml file, (item for RecyclerView)
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
                 return new UserViewHolder(view);
             }
 
-             /**
-             * use of Bind Data as simple onBindViewHolder in the RecyclerView.Adapter
-             */
+
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
                 UserViewHolder mUserViewHolder = (UserViewHolder)holder;
                 final User user = (User)val;
-
-                // This code for uses demonstration of the GenericAdapter with custom class (User)
-                if(user!=null){
-                    try {
-                        mUserViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mUserViewHolder.bottom_wrapper);
-                        mSwipeManager.bind(mUserViewHolder.mSwipeLayout, position);
-
-                        mUserViewHolder.tvCounter.setText(String.valueOf(position + 1));
-                        mUserViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
-                        mUserViewHolder.tvTitleDescription.setText(user.getAge() + " years");
-                        mUserViewHolder.tvSubTitleDescription.setText(user.getMail());
-
-                        int status = user.getStatus();
-                        switch (status){
-                            case 0:
-                                mUserViewHolder.tvStatus.setTextColor(Color.RED);
-                                mUserViewHolder.tvStatus.setText("Offline");
-                                break;
-
-                            case 1:
-                                mUserViewHolder.tvStatus.setTextColor(Color.BLUE);
-
-                                mUserViewHolder.tvStatus.setText("Online");
-                                break;
-                        }
-
-
-                        mUserViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mSwipeManager.closeAllItems();
-
-                                Toast.makeText(mContext, "Picked user: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-
-                        mUserViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(mContext, "Button_1 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                        mUserViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(mContext, "Button_2 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                        mUserViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(mContext, "Button_3 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } catch (Exception mE) {
-                        mE.printStackTrace();
-                    }
-                }
+                
+                // using onBindData as simple onBindViewHolder in the RecyclerView.Adapter
             }
 
             /**
@@ -406,12 +205,14 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
             }
         };
 
-       
+       // set parameters for your RecyclerView
         RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        // add ItemTouchHelper for items moving
         ItemTouchHelper.Callback callback = new GenericTouchHelper(genAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
+        // add GenericAdapter to RecyclerView
         recyclerView.setAdapter(genAdapter);
 ```
