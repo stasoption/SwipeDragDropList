@@ -6,13 +6,15 @@ package ru.a3technology.swipedraglist;
 
 public class User {
 
-    private String mFirstName, mLastName;
-    private int mAge;
+    private String mFirstName, mLastName, mMail;
+    private int mAge, mStatus;
 
-    public User(String firstName, String lastName, int age){
+    public User(String firstName, String lastName, String mMail, int age, int status){
         setFirstName(firstName);
         setLastName(lastName);
+        setMail(mMail);
         setAge(age);
+        setStatus(status);
     }
 
     public void setFirstName(String name){
@@ -29,10 +31,29 @@ public class User {
         return mLastName;
     }
 
+    public void setMail(String addresss){
+        mMail = addresss;
+    }
+    public String getMail(){
+        return mMail;
+    }
+
+    public void setStatus(int status){
+        mStatus = status;
+    }
+    public int getStatus(){
+        return mStatus;
+    }
+
     public void setAge(int age){
         mAge = age;
     }
     public int getAge(){
         return mAge;
+    }
+
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName() + " " + getMail() + " " + getAge();
     }
 }

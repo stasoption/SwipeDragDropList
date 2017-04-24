@@ -16,20 +16,28 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
 public class UserViewHolder extends RecyclerView.ViewHolder{
 
     public CardView mCardView;
+    public CardView cvButton_1, cvButton_2, cvButton_3;
     public SwipeLayout mSwipeLayout;
     public LinearLayout bottom_wrapper;
-    public TextView textView;
-    public ImageView action_1, action_2, action_3;
+
+    public TextView tvCounter, tvTitle, tvTitleDescription, tvSubTitleDescription, tvStatus;
 
     UserViewHolder(View itemView) {
         super(itemView);
         mCardView = (CardView)itemView.findViewById(R.id.cardView);
+        cvButton_1 = (CardView) itemView.findViewById(R.id.cvButton_1);
+        cvButton_2 = (CardView) itemView.findViewById(R.id.cvButton_2);
+        cvButton_3 = (CardView) itemView.findViewById(R.id.cvButton_3);
+
         mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.mSwipeLayout);
         bottom_wrapper = (LinearLayout)itemView.findViewById(R.id.bottom_wrapper);
-        textView = (TextView) itemView.findViewById(R.id.text);
 
-        action_1 = (ImageView) itemView.findViewById(R.id.action_1);
-        action_2 = (ImageView) itemView.findViewById(R.id.action_2);
-        action_3 = (ImageView) itemView.findViewById(R.id.action_3);
+        tvCounter = (TextView) itemView.findViewById(R.id.tvCounter);
+        tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+        tvTitleDescription = (TextView) itemView.findViewById(R.id.tvTitleDescription);
+        tvSubTitleDescription = (TextView) itemView.findViewById(R.id.tvSubTitleDescription);
+        tvStatus = (TextView) itemView.findViewById(R.id.tvStatus);
+
+
     }
 }

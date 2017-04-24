@@ -2,12 +2,15 @@ package ru.a3technology.swipedraglist;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,43 +44,69 @@ public class SwipeDragDropListDirection {
             }
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder holder, User val, int position) {
+            public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
                 UserViewHolder mUserViewHolder = (UserViewHolder)holder;
-                User user = (User)val;
+                final User user = (User)val;
 
-                try {
-                    mUserViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mUserViewHolder.bottom_wrapper);
-                    mSwipeManager.bind(mUserViewHolder.mSwipeLayout, position);
+                if(user!=null){
+                    try {
+                        mUserViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mUserViewHolder.bottom_wrapper);
+                        mSwipeManager.bind(mUserViewHolder.mSwipeLayout, position);
 
-                    mUserViewHolder.textView.setText(user.getFirstName() + " " + user.getLastName());
+                        mUserViewHolder.tvCounter.setText(String.valueOf(position + 1));
+                        mUserViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
+                        mUserViewHolder.tvTitleDescription.setText(user.getAge() + " years");
+                        mUserViewHolder.tvSubTitleDescription.setText(user.getMail());
 
-                    mUserViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mSwipeManager.closeAllItems();
+                        int status = user.getStatus();
+                        switch (status){
+                            case 0:
+                                mUserViewHolder.tvStatus.setTextColor(Color.RED);
+                                mUserViewHolder.tvStatus.setText("Offline");
+                                break;
+
+                            case 1:
+                                mUserViewHolder.tvStatus.setTextColor(Color.BLUE);
+
+                                mUserViewHolder.tvStatus.setText("Online");
+                                break;
                         }
-                    });
 
-                    mUserViewHolder.action_1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        }
-                    });
 
-                    mUserViewHolder.action_2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        }
-                    });
+                        mUserViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mSwipeManager.closeAllItems();
 
-                    mUserViewHolder.action_3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                                Toast.makeText(mContext, "Picked user: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
-                } catch (Exception mE) {
-                    mE.printStackTrace();
+                            }
+                        });
+
+                        mUserViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Toast.makeText(mContext, "Button_1 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        mUserViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(mContext, "Button_2 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        mUserViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(mContext, "Button_3 in " + String.valueOf(position + 1) + " position", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (Exception mE) {
+                        mE.printStackTrace();
+                    }
                 }
             }
 

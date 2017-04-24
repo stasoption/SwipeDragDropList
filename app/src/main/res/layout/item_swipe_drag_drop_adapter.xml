@@ -21,18 +21,18 @@
 
         <!--content for BottomView-->
         <android.support.v7.widget.CardView
-            android:id="@+id/ll_button_1_go_to_sender_or_getter"
+            android:id="@+id/cvButton_1"
             style="@style/DragDropCardView">
 
             <LinearLayout
                 style="@style/DragDropLinear"
-                android:background="@color/color_option_1">
+                android:background="@color/color_option_2">
                 <ImageView
                     style="@style/DragDropIcon"
-                    android:src="@android:drawable/ic_input_add"
+                    android:src="@android:drawable/ic_menu_call"
                     android:id="@+id/img_button_1_go_to_sender_or_getter"/>
                 <TextView
-                    android:text="Button #1"
+                    android:text="Action #1"
                     android:id="@+id/tv_button_1_go_to_sender_or_getter"
                     style="@style/DragDropTextView"/>
             </LinearLayout>
@@ -41,7 +41,7 @@
 
 
         <android.support.v7.widget.CardView
-            android:id="@+id/ll_button_2_go_to_sender_or_getter"
+            android:id="@+id/cvButton_2"
             style="@style/DragDropCardView">
             <LinearLayout
                 style="@style/DragDropLinear"
@@ -52,25 +52,25 @@
                     android:id="@+id/img_button_2_go_to_sender_or_getter"/>
                 <TextView
                     style="@style/DragDropTextView"
-                    android:text="Button #2"
+                    android:text="Action #2"
                     android:id="@+id/tv_button_2_go_to_sender_or_getter"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
 
         <android.support.v7.widget.CardView
-            android:id="@+id/ll_button_3_go_to_sender_or_getter"
+            android:id="@+id/cvButton_3"
             style="@style/DragDropCardView">
             <LinearLayout
                 style="@style/DragDropLinear"
                 android:background="@color/color_option_3">
                 <ImageView
                     style="@style/DragDropIcon"
-                    android:src="@android:drawable/ic_dialog_alert"
+                    android:src="@android:drawable/ic_menu_delete"
                     android:id="@+id/img_button_3_go_to_sender_or_getter"/>
                 <TextView
                     style="@style/DragDropTextView"
-                    android:text="Button #3"
+                    android:text="Action #3"
                     android:id="@+id/tv_button_3_go_to_sender_or_getter"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -86,7 +86,7 @@
         android:focusableInTouchMode="false"
         android:clickable="false"
         android:focusable="false"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
@@ -105,24 +105,77 @@
                 android:id="@+id/ll_holder_view"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/fab_margin">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/iv_usr_photo_after_registration"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    app:civ_border_width="2dp"
-                    app:civ_border_color="@android:color/white" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/text"
+                    android:id="@+id/tvCounter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textColor="@android:color/white"
+                    android:text="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/circle_counter"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <!--TITLE-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:text="Some title"/>
+
+                        <TextView
+                            android:id="@+id/tvTitleDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+                    </LinearLayout>
+
+
+                    <!--SUB TITLE-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+
+                        <TextView
+                            android:id="@+id/tvSubTitleDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sub Title description"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="16dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textColor="@android:color/holo_green_dark"
+                    android:padding="@dimen/mid_margin"
+                    android:text="Online"/>
+
 
             </LinearLayout>
             <!--end content for SurfaceView-->

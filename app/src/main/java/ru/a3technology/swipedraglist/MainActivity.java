@@ -18,13 +18,12 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
         setContentView(R.layout.activity_main);
 
         ArrayList<User> mUserArrayList = new ArrayList<>();
-        mUserArrayList.add(new User("Stas", "Averin", 31));
-        mUserArrayList.add(new User("Peter", "Parker", 21));
-        mUserArrayList.add(new User("Jonn", "Conner", 28));
-        mUserArrayList.add(new User("Sarra", "Conner", 45));
-        mUserArrayList.add(new User("Santa", "Clouse", 45));
-        mUserArrayList.add(new User("Eddi", "Merphy", 44));
-        mUserArrayList.add(new User("Brad", "Pitt", 55));
+        mUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
+        mUserArrayList.add(new User("Connie", "Williams", "cwilliams@gmail.com", 29, 0));
+        mUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
+        mUserArrayList.add(new User("Patricia", "Wong", "pwong@gmail.com", 28, 1));
+        mUserArrayList.add(new User("Billy", "Martinez", "bmartinez@gmail.com", 45, 0));
+        mUserArrayList.add(new User("Ralph", "Washington", "ralph_washington@gmail.com", 41, 1));
 
         SwipeDragDropListDirection mSwipeDragDropListDirection = new SwipeDragDropListDirection(mContext);
         mSwipeDragDropListDirection.show(mUserArrayList);
