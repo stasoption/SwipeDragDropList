@@ -37,21 +37,8 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardView"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="vertical"
-            card_view:cardCornerRadius="0dp"
-            card_view:cardElevation="1dp"
-            android:clickable="true">
-            
+        
             <LinearLayout
-                android:id="@+id/ll_holder_view"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +47,6 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
                 <!--Here your content for SurfaceView-->
                 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
     </LinearLayout>
     <!-- SurfaceView End -->
 </ru.a3technology.swipedragdroplist.swiper.SwipeLayout>
