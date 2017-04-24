@@ -97,7 +97,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
 }
 
 ```
-**And Last, overriding the Generic adapter for your class:
+**And Last, overriding the Generic adapter for your class:**
 ```
         // Overriding with the class you needed
           GenericAdapter<YOUR_CALSS> genAdapter = new GenericAdapter<User>(mContext, new ArrayList<YOUR_CALSS>) {
