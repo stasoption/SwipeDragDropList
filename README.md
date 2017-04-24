@@ -69,24 +69,25 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
 **And Last, overriding the Generic adapter for your class:**
 ```
         // Overriding with the class you needed
-          GenericAdapter<YOUR_CALSS> genAdapter = new GenericAdapter<YOUR_CALSS>(mContext, new ArrayList<YOUR_CALSS>) {
+          GenericAdapter<YOUR_CLASS> genAdapter = new GenericAdapter<YOUR_CLASS>(mContext, new ArrayList<YOUR_CLASS>) {
             // initialize the SwipeItemManager for swipe managing
             private final SwipeItemManager mSwipeManager = getSwipeItemManager(); 
          
             @Override
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
                 // Your xml file, (item for RecyclerView)
-                View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
+                View view = LayoutInflater.from(mContext).inflate(R.layout.ID_FOR_YOUR_LAYOUT, parent, false);
                 return new YourCustomViewHolder(view);
             }
 
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder holder, YOUR_CALSS val, final int position) {
+            public void onBindData(RecyclerView.ViewHolder holder, YOUR_CLASS val, final int position) {
                 YourCustomViewHolder viewHolder = (YourCustomViewHolder)holder;
-                YOUR_CALSS yourClass = (YOUR_CALSS)val;
+                YOUR_CLASS yourClass = (YOUR_CLASS)val;
                 
                 // using onBindData as simple onBindViewHolder in the RecyclerView.Adapter
+                
             }
 
             /**
@@ -177,10 +178,12 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
         RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        
         // add ItemTouchHelper for items moving
         ItemTouchHelper.Callback callback = new GenericTouchHelper(genAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
+        
         // add GenericAdapter to RecyclerView
         recyclerView.setAdapter(genAdapter);
 ```
