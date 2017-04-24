@@ -14,11 +14,11 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
  */
 
 public class UserViewHolder extends RecyclerView.ViewHolder{
+
     public CardView mCardView;
     public SwipeLayout mSwipeLayout;
     public LinearLayout bottom_wrapper;
     public TextView textView;
-
     public ImageView action_1, action_2, action_3;
 
     UserViewHolder(View itemView) {

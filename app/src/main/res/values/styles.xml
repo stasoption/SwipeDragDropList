@@ -17,4 +17,51 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+
+    <style name="DragDropCardView" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="DragDropLinear">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="DragDropIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="DragDropTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+
+
 </resources>

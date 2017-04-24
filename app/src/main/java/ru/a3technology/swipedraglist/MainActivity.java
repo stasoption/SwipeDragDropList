@@ -17,16 +17,18 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<User> mUserArrayList = new ArrayList<User>();
+        ArrayList<User> mUserArrayList = new ArrayList<>();
         mUserArrayList.add(new User("Stas", "Averin", 31));
         mUserArrayList.add(new User("Peter", "Parker", 21));
         mUserArrayList.add(new User("Jonn", "Conner", 28));
         mUserArrayList.add(new User("Sarra", "Conner", 45));
+        mUserArrayList.add(new User("Santa", "Clouse", 45));
+        mUserArrayList.add(new User("Eddi", "Merphy", 44));
+        mUserArrayList.add(new User("Brad", "Pitt", 55));
 
-        UserSwipeDragDropList mUserSwipeDragDropList = new UserSwipeDragDropList(mContext);
-        mUserSwipeDragDropList.show(mUserArrayList);
+        SwipeDragDropListDirection mSwipeDragDropListDirection = new SwipeDragDropListDirection(mContext);
+        mSwipeDragDropListDirection.show(mUserArrayList);
     }
-
 
     @Override
     public void onClickItem() {

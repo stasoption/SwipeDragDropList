@@ -22,14 +22,13 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
  * Created by Stas on 21.04.2017.
  */
 
-public class UserSwipeDragDropList {
+public class SwipeDragDropListDirection {
 
     private Context mContext;
 
-    public UserSwipeDragDropList(Context context){
+    public SwipeDragDropListDirection(Context context){
         mContext = context;
     }
-
 
     public void show(List<User> list){
         GenericAdapter<User> genAdapter = new GenericAdapter<User>(mContext, list) {
@@ -40,6 +39,7 @@ public class UserSwipeDragDropList {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
                 return new UserViewHolder(view);
             }
+
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, int position) {
                 UserViewHolder mUserViewHolder = (UserViewHolder)holder;
@@ -106,8 +106,7 @@ public class UserSwipeDragDropList {
             }
 
             @Override
-            public void notifyDatasetChanged() {
-            }
+            public void notifyDatasetChanged() {}
 
             @Override
             public void openItem(int position) {
@@ -140,9 +139,7 @@ public class UserSwipeDragDropList {
             }
 
             @Override
-            public void removeShownLayouts(SwipeLayout layout) {
-                mSwipeManager.removeShownLayouts(layout);
-            }
+            public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
 
             @Override
             public boolean isOpen(int position) {
