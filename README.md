@@ -58,12 +58,20 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
 
 ```
 public class YourCustomViewHolder extends RecyclerView.ViewHolder{
+// the swipeLayout must be here
+    SwipeLayout mSwipeLayout;
     
+    //Your other wievs
+    ...
     YourView yourView;
+    ...
    
     YourCustomViewHolder(View itemView) {
         super(itemView);
+        mSwipeLayout = (SwipeLayout)itemView.findViewById(R.id.IdYourSwipeLayout);
+        ...
         yourView = (YourView)itemView.findViewById(R.id.yourViewId);
+        ...
     }
 }
 
@@ -88,8 +96,14 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
                 YourCustomViewHolder viewHolder = (YourCustomViewHolder)holder;
                 YOUR_CLASS yourClass = (YOUR_CLASS)val;
                 
-                // using onBindData as simple onBindViewHolder in the RecyclerView.Adapter
-                
+                // set param for swipe layout
+                mOrderViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right /*right or left*/,
+                                                    mOrderViewHolder.bottom_wrapper /*id your the  bottom view*/);
+                //set params for each items        
+                mSwipeManager.bind(mOrderViewHolder.mSwipeLayout, position);
+                        
+                // Further, use  use onBindData as simple onBindViewHolder in the RecyclerView.Adapter
+               
             }
 
             /**
