@@ -28,7 +28,7 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <!--Here your content for BottomView-->
+        <!--HERE YOYR CUSTOM CONTENT FOR BOTTOM VIEW-->
 
     </LinearLayout>
     <!-- BottomView End-->
@@ -46,7 +46,7 @@ So, the XML file of the item for recyclerView must have **SwipeLayout** as the m
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
                 
-                <!--Here your content for SurfaceView-->
+                <!--HERE YOYR CUSTOM CONTENT FOR SURFACE VIEW-->
                 
             </LinearLayout>
     </LinearLayout>
@@ -93,25 +93,22 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
 
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, YOUR_CLASS val, final int position) {
-                YourCustomViewHolder viewHolder = (YourCustomViewHolder)holder;
+                YourCustomViewHolder viewHolder = (YOUR CUSTOM VIEW HOLDER)holder;
                 YOUR_CLASS yourClass = (YOUR_CLASS)val;
                 
-                // set param for swipe layout
-                mOrderViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right /*right or left*/,
-                                                    mOrderViewHolder.bottom_wrapper /*id your the  bottom view*/);
-                //set params for each items        
-                mSwipeManager.bind(mOrderViewHolder.mSwipeLayout, position);
-                        
-                // Further, use  use onBindData as simple onBindViewHolder in the RecyclerView.Adapter
-               
+                // set swipe params for for the swipe layout
+                viewHolder.swipeLayout.setDrag(
+                SwipeLayout.DragEdge.Right /*right or left*/, 
+                viewHolder.bottom_wrapper /*your bottom view Id*/
+                );
+                
+                //binding swipe layout to swipe manager     
+                mSwipeManager.bind(viewHolder.mSwipeLayout, position);
+                
+                ...
             }
 
-            /**
-             * This method calls when user moving the item of the list
-             * @param fromPosition The start position of the moved item.
-             * @param toPosition   Then resolved position of the moved item.
-             * @return
-             */
+            /* This method will call when user moving the item of the list */
             @Override
             public boolean onItemMoving(int fromPosition, int toPosition) {
                 /*close all item when start moving*/
@@ -127,12 +124,10 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
                         Collections.swap(getList(), i, i - 1);
                     }
                 }
-                /*updating the RecyclerView*/
                 notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
 
-            // SwipeManagers methods for swipe direction
             @Override
             public int getSwipeLayoutResourceId(int position) {
                 return 0;
@@ -189,11 +184,11 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
                 mSwipeManager.setMode(mode);
             }
         };
-
-       // set parameters for your RecyclerView
-        RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
+        
+        // set parameters for your RecyclerView
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         
         // add ItemTouchHelper for items moving
         ItemTouchHelper.Callback callback = new GenericTouchHelper(genAdapter);
