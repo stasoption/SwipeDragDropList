@@ -89,7 +89,7 @@ public class SwipeDragDropListManager {
                             @Override
                             public void onClick(View v) {
                                 if(mOnSwipeDragDropListener !=null)
-                                    mOnSwipeDragDropListener.onActionLeftButton();
+                                    mOnSwipeDragDropListener.onLeftButtonClicked();
                             }
                         });
 
@@ -97,7 +97,7 @@ public class SwipeDragDropListManager {
                             @Override
                             public void onClick(View v) {
                                 if(mOnSwipeDragDropListener !=null)
-                                    mOnSwipeDragDropListener.onActionCenterButton();
+                                    mOnSwipeDragDropListener.onCenterButtonClicked();
                             }
                         });
 
@@ -105,7 +105,7 @@ public class SwipeDragDropListManager {
                             @Override
                             public void onClick(View v) {
                                 if(mOnSwipeDragDropListener !=null)
-                                    mOnSwipeDragDropListener.onActionRightButton();
+                                    mOnSwipeDragDropListener.onRightButtonClicked();
                             }
                         });
                     } catch (Exception mE) {

@@ -61,17 +61,17 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
     }
 
     @Override
-    public void onActionLeftButton() {
+    public void onLeftButtonClicked() {
         Toast.makeText(mContext, "Button_1 clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onActionCenterButton() {
+    public void onCenterButtonClicked() {
         Toast.makeText(mContext, "Button_2 clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onActionRightButton() {
+    public void onRightButtonClicked() {
         Toast.makeText(mContext, "Button_3 clicked", Toast.LENGTH_SHORT).show();
     }
 
