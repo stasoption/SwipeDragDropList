@@ -8,7 +8,7 @@ import ru.a3technology.swipedraglist.Model.User;
  */
 
 public interface OnSwipeDragDropListener {
-    void onGotSwipeDragDropAdapter(SwipeDragDropGenericAdapter<User> getAdapter);
+    void onGotSwipeDragDropAdapter(SwipeDragDropGenericAdapter<User> adapter);
     void onItemMoved(int fromPosition, int toPosition);
     void onLeftButtonClicked();
     void onCenterButtonClicked();
