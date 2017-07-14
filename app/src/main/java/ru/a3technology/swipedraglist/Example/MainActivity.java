@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
 
 
     @Override
-    public void onGotSwipeDragDropAdapter(SwipeDragDropGenericAdapter<User> getAdapter) {
+    public void onGotSwipeDragDropAdapter(SwipeDragDropGenericAdapter<User> adapter) {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        ItemTouchHelper.Callback callback = new GenericTouchHelper(getAdapter);
+        ItemTouchHelper.Callback callback = new GenericTouchHelper(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(getAdapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
