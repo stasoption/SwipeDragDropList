@@ -185,25 +185,16 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
             }
         };
         
-        // recyclerView parameters
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        // set parameters for your RecyclerView
+        RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        
-<<<<<<< HEAD
-        // ItemTouchHelper params when item moving
-        ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
-=======
-        // add ItemTouchHelper for items moving
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+        // params for the itemTouchHelper when items moving
         ItemTouchHelper.Callback callback = new GenericTouchHelper(adapter);
->>>>>>> 22b8261... Update README.md
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
-        
-        // add GenericAdapter to RecyclerView
-<<<<<<< HEAD
-        recyclerView.setAdapter(userAdapter);
-=======
+
+        // add the adapter to recyclerView
         recyclerView.setAdapter(adapter);
->>>>>>> 22b8261... Update README.md
 ```
