@@ -1,1 +1,1 @@
-include ':app', ':swipedragdroplist2'
+include ':app', ':swipedragdroplist'

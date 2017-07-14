@@ -3,7 +3,7 @@ package ru.a3technology.swipedragdroplist.drager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import ru.a3technology.swipedragdroplist.adapters.GenericAdapter;
+import ru.a3technology.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
 
 
 /**
@@ -12,9 +12,9 @@ import ru.a3technology.swipedragdroplist.adapters.GenericAdapter;
 
 public class GenericTouchHelper extends ItemTouchHelper.Callback {
 
-    private final GenericAdapter mAdapter;
+    private final SwipeDragDropGenericAdapter mAdapter;
 
-    public GenericTouchHelper(GenericAdapter adapter) {
+    public GenericTouchHelper(SwipeDragDropGenericAdapter adapter) {
         mAdapter = adapter;
     }
 

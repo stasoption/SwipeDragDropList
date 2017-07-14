@@ -18,7 +18,7 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
  * Created by Stas on 21.04.2017.
  */
 
-public abstract class GenericAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements OnDragDropListener, SwipeItemMangerInterface, SwipeAdapterInterface {
 
     private Context context;
@@ -32,7 +32,7 @@ public abstract class GenericAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 
     public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
 
-    public GenericAdapter(Context context, List<T> items){
+    public SwipeDragDropGenericAdapter(Context context, List<T> items){
         this.context = context;
         this.items = items;
         mSwipeManager.setMode(Attributes.Mode.Single);

@@ -9,103 +9,107 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
 
-import ru.a3technology.swipedragdroplist.adapters.GenericAdapter;
+import ru.a3technology.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
 import ru.a3technology.swipedragdroplist.drager.GenericTouchHelper;
 import ru.a3technology.swipedragdroplist.swiper.Attributes;
 import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
 import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
 import ru.a3technology.swipedraglist.R;
 import ru.a3technology.swipedraglist.Model.User;
-import ru.a3technology.swipedraglist.interfaces.OnSwipeDragDropListDirection;
+import ru.a3technology.swipedraglist.interfaces.OnSwipeDragDropListener;
 
 /**
  * Created by Stas on 21.04.2017.
  */
 
-public class SwipeDragDropListDirection {
+public class SwipeDragDropListManager {
 
     private Context mContext;
-    private OnSwipeDragDropListDirection mDirection;
+    private OnSwipeDragDropListener mOnSwipeDragDropListener;
 
-    public void setOnSwipeDragDropListDirection(OnSwipeDragDropListDirection direction){
-        this.mDirection = direction;
+    public void setOnSwipeDragDropListDirection(OnSwipeDragDropListener listener){
+        this.mOnSwipeDragDropListener = listener;
     }
 
-    public SwipeDragDropListDirection(Context context){
+    public SwipeDragDropListManager(Context context){
         mContext = context;
     }
 
-    public void show(List<User> list){
-        GenericAdapter<User> genAdapter = new GenericAdapter<User>(mContext, list) {
+    public void buildSwipeDragDropList(List<User> list){
+        SwipeDragDropGenericAdapter<User> genAdapter = new SwipeDragDropGenericAdapter<User>(mContext, list) {
+
             private final SwipeItemManager mSwipeManager = getSwipeItemManager();
 
             @Override
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
-                View view = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
+                View view = LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
                 return new UserViewHolder(view);
             }
 
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
-                UserViewHolder mUserViewHolder = (UserViewHolder)holder;
+                UserViewHolder userViewHolder = (UserViewHolder)holder;
                 final User user = (User)val;
 
                 if(user!=null){
                     try {
-                        mUserViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mUserViewHolder.bottom_wrapper);
-                        mSwipeManager.bind(mUserViewHolder.mSwipeLayout, position);
+                        userViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, userViewHolder.bottom_wrapper);
+                        mSwipeManager.bind(userViewHolder.mSwipeLayout, position);
 
-                        mUserViewHolder.tvCounter.setText(String.valueOf(position + 1));
-                        mUserViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
-                        mUserViewHolder.tvTitleDescription.setText(user.getAge() + " years");
-                        mUserViewHolder.tvSubTitleDescription.setText(user.getMail());
+                        userViewHolder.tvCounter.setText(String.valueOf(position + 1));
+                        userViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
+                        userViewHolder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
+                        userViewHolder.tvSubTitleDescription.setText(user.getMail());
 
                         int status = user.getStatus();
                         switch (status){
                             case 0:
-                                mUserViewHolder.tvStatus.setTextColor(Color.RED);
-                                mUserViewHolder.tvStatus.setText("Offline");
+                                userViewHolder.tvStatus.setTextColor(Color.RED);
+                                userViewHolder.tvStatus.setText(R.string.text_offline);
                                 break;
 
                             case 1:
-                                mUserViewHolder.tvStatus.setTextColor(Color.BLUE);
-
-                                mUserViewHolder.tvStatus.setText("Online");
+                                userViewHolder.tvStatus.setTextColor(Color.BLUE);
+                                userViewHolder.tvStatus.setText(R.string.text_online);
                                 break;
                         }
 
-
-                        mUserViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
+                        final String name = user.getFirstName();
+                        userViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 mSwipeManager.closeAllItems();
-                                if(mDirection!=null)mDirection.onClickItem(user);
+                                if(mOnSwipeDragDropListener !=null)
+                                    mOnSwipeDragDropListener.onClickItem(name);
                             }
                         });
 
-                        mUserViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
+                        userViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(mDirection!=null)mDirection.onActionLeftButton();
+                                if(mOnSwipeDragDropListener !=null)
+                                    mOnSwipeDragDropListener.onActionLeftButton();
                             }
                         });
 
-                        mUserViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
+                        userViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(mDirection!=null)mDirection.onActionCenterButton();
+                                if(mOnSwipeDragDropListener !=null)
+                                    mOnSwipeDragDropListener.onActionCenterButton();
                             }
                         });
 
-                        mUserViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
+                        userViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(mDirection!=null)mDirection.onActionRightButton();
+                                if(mOnSwipeDragDropListener !=null)
+                                    mOnSwipeDragDropListener.onActionRightButton();
                             }
                         });
                     } catch (Exception mE) {
@@ -116,8 +120,6 @@ public class SwipeDragDropListDirection {
 
             @Override
             public boolean onItemMoving(int fromPosition, int toPosition) {
-                /*moving items and change position in the array*/
-                /*close all item when start moving*/
                 mSwipeManager.closeAllItems();
                 if (fromPosition < toPosition) {
                     for (int i = fromPosition; i < toPosition; i++) {
@@ -128,9 +130,8 @@ public class SwipeDragDropListDirection {
                         Collections.swap(getList(), i, i - 1);
                     }
                 }
-                /*updating the RecyclerView*/
                 notifyItemMoved(fromPosition, toPosition);
-                if(mDirection!=null)mDirection.onItemMoved(fromPosition, toPosition);
+                if(mOnSwipeDragDropListener !=null) mOnSwipeDragDropListener.onItemMoved(fromPosition, toPosition);
                 return true;
             }
 
