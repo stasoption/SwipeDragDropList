@@ -3,11 +3,16 @@ package ru.a3technology.swipedraglist.Example;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ru.a3technology.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
+import ru.a3technology.swipedragdroplist.drager.GenericTouchHelper;
 import ru.a3technology.swipedraglist.interfaces.OnSwipeDragDropListener;
 import ru.a3technology.swipedraglist.R;
 import ru.a3technology.swipedraglist.Model.User;
@@ -17,11 +22,14 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
 
     private final Context mContext = MainActivity.this;;
     private SwipeDragDropListManager mSwipeDragDropListManager;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         ArrayList<User> testUserArrayList = new ArrayList<>();
         testUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
@@ -33,12 +41,18 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
 
         mSwipeDragDropListManager = new SwipeDragDropListManager(mContext);
         mSwipeDragDropListManager.setOnSwipeDragDropListDirection(this);
-        mSwipeDragDropListManager.buildSwipeDragDropList(testUserArrayList);
+        mSwipeDragDropListManager.getSwipeDragDropAdapter(testUserArrayList);
     }
 
+
     @Override
-    public void onClickItem(String name) {
-        Toast.makeText(mContext, "Picked user: " + name, Toast.LENGTH_SHORT).show();
+    public void onGotSwipeDragDropAdapter(SwipeDragDropGenericAdapter<User> getAdapter) {
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        ItemTouchHelper.Callback callback = new GenericTouchHelper(getAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(getAdapter);
     }
 
     @Override
@@ -59,5 +73,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeDragDropLi
     @Override
     public void onActionRightButton() {
         Toast.makeText(mContext, "Button_3 clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClicked(String name) {
+        Toast.makeText(mContext, "Picked user: " + name, Toast.LENGTH_SHORT).show();
     }
 }

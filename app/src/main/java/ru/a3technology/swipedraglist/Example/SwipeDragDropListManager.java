@@ -1,11 +1,8 @@
 package ru.a3technology.swipedraglist.Example;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.a3technology.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
-import ru.a3technology.swipedragdroplist.drager.GenericTouchHelper;
 import ru.a3technology.swipedragdroplist.swiper.Attributes;
 import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
 import ru.a3technology.swipedragdroplist.swiper.SwipeLayout;
@@ -39,11 +35,10 @@ public class SwipeDragDropListManager {
         mContext = context;
     }
 
-    public void buildSwipeDragDropList(List<User> list){
-        SwipeDragDropGenericAdapter<User> genAdapter = new SwipeDragDropGenericAdapter<User>(mContext, list) {
+    public void getSwipeDragDropAdapter(List<User> list){
+        SwipeDragDropGenericAdapter<User> userAdapter = new SwipeDragDropGenericAdapter<User>(mContext, list) {
 
             private final SwipeItemManager mSwipeManager = getSwipeItemManager();
-
             @Override
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
                 View view = LayoutInflater.from(mContext)
@@ -51,6 +46,7 @@ public class SwipeDragDropListManager {
                 return new UserViewHolder(view);
             }
 
+            /**/
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
                 UserViewHolder userViewHolder = (UserViewHolder)holder;
@@ -58,8 +54,8 @@ public class SwipeDragDropListManager {
 
                 if(user!=null){
                     try {
-                        userViewHolder.mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, userViewHolder.bottom_wrapper);
-                        mSwipeManager.bind(userViewHolder.mSwipeLayout, position);
+                        userViewHolder.swipeLayout.setDrag(SwipeLayout.DragEdge.Right, userViewHolder.bottom_wrapper);
+                        mSwipeManager.bind(userViewHolder.swipeLayout, position);
 
                         userViewHolder.tvCounter.setText(String.valueOf(position + 1));
                         userViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
@@ -80,12 +76,12 @@ public class SwipeDragDropListManager {
                         }
 
                         final String name = user.getFirstName();
-                        userViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
+                        userViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 mSwipeManager.closeAllItems();
                                 if(mOnSwipeDragDropListener !=null)
-                                    mOnSwipeDragDropListener.onClickItem(name);
+                                    mOnSwipeDragDropListener.onItemClicked(name);
                             }
                         });
 
@@ -192,12 +188,7 @@ public class SwipeDragDropListManager {
             }
         };
 
-        RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        ItemTouchHelper.Callback callback = new GenericTouchHelper(genAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setAdapter(genAdapter);
+        if(mOnSwipeDragDropListener !=null)
+            mOnSwipeDragDropListener.onGotSwipeDragDropAdapter(userAdapter);
     }
 }
