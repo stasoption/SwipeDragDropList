@@ -79,7 +79,7 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
 **And Last, overriding the Generic adapter for your class:**
 ```
         // Overriding with the class you needed
-          GenericAdapter<YOUR_CLASS> userAdapter = new GenericAdapter<YOUR_CLASS>(mContext, new ArrayList<YOUR_CLASS>) {
+          GenericAdapter<YOUR_CLASS> adapter = new GenericAdapter<YOUR_CLASS>(new ArrayList<YOUR_CLASS>) {
             // initialize the SwipeItemManager for swipe managing
             private final SwipeItemManager mSwipeManager = getSwipeItemManager(); 
          
@@ -190,11 +190,20 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         
+<<<<<<< HEAD
         // ItemTouchHelper params when item moving
         ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
+=======
+        // add ItemTouchHelper for items moving
+        ItemTouchHelper.Callback callback = new GenericTouchHelper(adapter);
+>>>>>>> 22b8261... Update README.md
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
         
         // add GenericAdapter to RecyclerView
+<<<<<<< HEAD
         recyclerView.setAdapter(userAdapter);
+=======
+        recyclerView.setAdapter(adapter);
+>>>>>>> 22b8261... Update README.md
 ```
