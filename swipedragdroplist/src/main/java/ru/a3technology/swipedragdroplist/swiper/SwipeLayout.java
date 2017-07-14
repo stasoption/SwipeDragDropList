@@ -30,7 +30,7 @@ import ru.a3technology.swipedragdroplist.R;
 
 
 /**
- * Created by Stas on 21.03.2017.
+ * from: https://github.com/daimajia/AndroidSwipeLayout/
  */
 
 public class SwipeLayout extends FrameLayout {

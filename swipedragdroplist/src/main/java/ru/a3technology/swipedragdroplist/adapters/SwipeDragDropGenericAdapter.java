@@ -1,6 +1,5 @@
 package ru.a3technology.swipedragdroplist.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -21,7 +20,6 @@ import ru.a3technology.swipedragdroplist.swiper.SwipeItemManager;
 public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements OnDragDropListener, SwipeItemMangerInterface, SwipeAdapterInterface {
 
-    private Context context;
     private List<T> items;
     private final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
@@ -32,8 +30,7 @@ public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapte
 
     public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
 
-    public SwipeDragDropGenericAdapter(Context context, List<T> items){
-        this.context = context;
+    public SwipeDragDropGenericAdapter(List<T> items){
         this.items = items;
         mSwipeManager.setMode(Attributes.Mode.Single);
     }

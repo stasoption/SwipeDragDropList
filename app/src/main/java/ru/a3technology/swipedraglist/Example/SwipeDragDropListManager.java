@@ -36,7 +36,7 @@ public class SwipeDragDropListManager {
     }
 
     public void getSwipeDragDropAdapter(List<User> list){
-        SwipeDragDropGenericAdapter<User> userAdapter = new SwipeDragDropGenericAdapter<User>(mContext, list) {
+        SwipeDragDropGenericAdapter<User> userAdapter = new SwipeDragDropGenericAdapter<User>(list) {
 
             private final SwipeItemManager mSwipeManager = getSwipeItemManager();
             @Override
