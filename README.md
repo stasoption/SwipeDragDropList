@@ -76,7 +76,7 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
 }
 
 ```
-**And Last, overriding the Generic adapter for your class:**
+**Overriding of the custom generic adapter:**
 ```
         // Overriding with the class you needed
           GenericAdapter<YOUR_CLASS> adapter = new GenericAdapter<YOUR_CLASS>(new ArrayList<YOUR_CLASS>) {
@@ -184,6 +184,10 @@ public class YourCustomViewHolder extends RecyclerView.ViewHolder{
                 mSwipeManager.setMode(mode);
             }
         };
+        
+```
+**Adding the adapter to RecyclerView:**
+```
         
         // set parameters for your RecyclerView
         RecyclerView recyclerView = (RecyclerView) ((Activity)mContext).findViewById(R.id.recycler_view);
