@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-          package="ru.a3technology.swipedragdroplist"
+          package="com.stasoption.swipedragdroplist"
 >
 
     <application android:allowBackup="true"

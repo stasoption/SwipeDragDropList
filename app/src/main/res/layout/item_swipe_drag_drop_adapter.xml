@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.a3technology.swipedragdroplist.swiper.SwipeLayout
+<com.stasoption.swipedragdroplist.swiper.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -182,4 +182,4 @@
         </android.support.v7.widget.CardView>
     </LinearLayout>
     <!-- Surface View End -->
-</ru.a3technology.swipedragdroplist.swiper.SwipeLayout>
+</com.stasoption.swipedragdroplist.swiper.SwipeLayout>
