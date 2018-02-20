@@ -5,10 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
@@ -22,7 +23,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+public abstract class SwipeDragDropGenericAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
         SwipeItemMangerInterface,
         SwipeAdapterInterface {
@@ -40,13 +41,11 @@ public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapte
 
     public abstract Context setContext();
 
-//    public abstract RecyclerView.ViewHolder setViewHolder(ViewGroup parent);
-
     public abstract View setSurfaceView(ViewGroup parent);
 
     public abstract View setBottomView(ViewGroup parent);
 
-    public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
+    public abstract void onBindData(U holder, T val, int position);
 
     protected SwipeDragDropGenericAdapter(List<T> items){
         this.mData = items;
@@ -74,8 +73,7 @@ public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapte
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
             mSwipeManager.bind(mSwipeLayout, position);
-
-            onBindData(holder, mData.get(position), position);
+            onBindData((U) holder, mData.get(position), position);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -105,7 +103,7 @@ public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapte
     }
 
     @Override
-    public void notifyDatasetChanged() {}
+    public void notifyDatasetChanged() {notifyDataSetChanged();}
 
     @Override
     public void openItem(int position) {

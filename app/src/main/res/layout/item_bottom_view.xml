@@ -5,7 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="1"
     android:focusableInTouchMode="false"
     android:clickable="false"
     android:focusable="false">
@@ -13,6 +12,7 @@
     <!--content for BottomView-->
     <android.support.v7.widget.CardView
         android:id="@+id/cvButton_1"
+        android:layout_weight="1"
         style="@style/DragDropCardView">
 
         <LinearLayout
@@ -33,6 +33,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvButton_2"
+        android:layout_weight="1"
         style="@style/DragDropCardView">
         <LinearLayout
             style="@style/DragDropLinear"
@@ -45,24 +46,6 @@
                 style="@style/DragDropTextView"
                 android:text="Action #2"
                 android:id="@+id/tv_button_2_go_to_sender_or_getter"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cvButton_3"
-        style="@style/DragDropCardView">
-        <LinearLayout
-            style="@style/DragDropLinear"
-            android:background="@color/color_option_3">
-            <ImageView
-                style="@style/DragDropIcon"
-                android:src="@android:drawable/ic_menu_delete"
-                android:id="@+id/img_button_3_go_to_sender_or_getter"/>
-            <TextView
-                style="@style/DragDropTextView"
-                android:text="Action #3"
-                android:id="@+id/tv_button_3_go_to_sender_or_getter"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
