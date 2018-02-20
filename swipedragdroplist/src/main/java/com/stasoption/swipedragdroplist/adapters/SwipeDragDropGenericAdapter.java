@@ -11,6 +11,7 @@ import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
 import com.stasoption.swipedragdroplist.swiper.Attributes;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
+import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 
 /**
@@ -68,5 +69,59 @@ public abstract class SwipeDragDropGenericAdapter<T> extends RecyclerView.Adapte
         return this.items.get(position);
     }
 
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return 0;
+    }
 
+    @Override
+    public void notifyDatasetChanged() {}
+
+    @Override
+    public void openItem(int position) {
+        mSwipeManager.openItem(position);
+    }
+
+    @Override
+    public void closeItem(int position) {
+        mSwipeManager.closeItem(position);
+    }
+
+    @Override
+    public void closeAllExcept(SwipeLayout layout) {
+        mSwipeManager.closeAllExcept(layout);
+    }
+
+    @Override
+    public void closeAllItems() {
+        mSwipeManager.closeAllItems();
+    }
+
+    @Override
+    public List<Integer> getOpenItems() {
+        return mSwipeManager.getOpenItems();
+    }
+
+    @Override
+    public List<SwipeLayout> getOpenLayouts() {
+        return mSwipeManager.getOpenLayouts();
+    }
+
+    @Override
+    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
+
+    @Override
+    public boolean isOpen(int position) {
+        return mSwipeManager.isOpen(position);
+    }
+
+    @Override
+    public Attributes.Mode getMode() {
+        return mSwipeManager.getMode();
+    }
+
+    @Override
+    public void setMode(Attributes.Mode mode) {
+        mSwipeManager.setMode(mode);
+    }
 }
