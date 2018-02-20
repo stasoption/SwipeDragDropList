@@ -50,76 +50,92 @@ public class MainActivity extends AppCompatActivity {
 
         SwipeDragDropGenericAdapter<User> userAdapter = new SwipeDragDropGenericAdapter<User>(testUserArrayList) {
 
-            private final SwipeItemManager mSwipeManager = getSwipeItemManager();
             @Override
-            public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
-                View view = LayoutInflater.from(mContext)
-                        .inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
-                return new UserViewHolder(view);
+            public Context setContext() {
+                return getApplicationContext();
+            }
+
+//            @Override
+//            public RecyclerView.ViewHolder setViewHolder(ViewGroup parent) {
+//                View view = LayoutInflater.from(mContext)
+//                        .inflate(R.layout.item_swipe_drag_drop_adapter, parent, false);
+//                return new UserViewHolder(view);
+//            }
+
+            @Override
+            public View setSurfaceView(ViewGroup parent) {
+                return LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_surface_view, parent, false);
+            }
+
+            @Override
+            public View setBottomView(ViewGroup parent) {
+                return LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_bottom_view, parent, false);
             }
 
             /**/
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, User val, final int position) {
-                UserViewHolder userViewHolder = (UserViewHolder)holder;
-                final User user = (User)val;
+//                UserViewHolder userViewHolder = (UserViewHolder)holder;
+//                final User user = (User)val;
 
-                if(user!=null){
-                    try {
-                        userViewHolder.swipeLayout.setDrag(SwipeLayout.DragEdge.Right, userViewHolder.bottom_wrapper);
-                        mSwipeManager.bind(userViewHolder.swipeLayout, position);
+//                if(user!=null){
+//                    try {
+//                        userViewHolder.swipeLayout.setDrag(SwipeLayout.DragEdge.Right, userViewHolder.bottom_wrapper);
+//                        mSwipeManager.bind(userViewHolder.swipeLayout, position);
 
-                        userViewHolder.tvCounter.setText(String.valueOf(position + 1));
-                        userViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
-                        userViewHolder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
-                        userViewHolder.tvSubTitleDescription.setText(user.getMail());
-
-                        int status = user.getStatus();
-                        switch (status){
-                            case 0:
-                                userViewHolder.tvStatus.setTextColor(Color.RED);
-                                userViewHolder.tvStatus.setText(R.string.text_offline);
-                                break;
-
-                            case 1:
-                                userViewHolder.tvStatus.setTextColor(Color.BLUE);
-                                userViewHolder.tvStatus.setText(R.string.text_online);
-                                break;
-                        }
-
-                        final String name = user.getFirstName();
-                        userViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mSwipeManager.closeAllItems();
-
-                            }
-                        });
-
-                        userViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-
-                        userViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-
-                        userViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-                    } catch (Exception mE) {
-                        mE.printStackTrace();
-                    }
-                }
+//                        userViewHolder.tvCounter.setText(String.valueOf(position + 1));
+//                        userViewHolder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
+//                        userViewHolder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
+//                        userViewHolder.tvSubTitleDescription.setText(user.getMail());
+//
+//                        int status = user.getStatus();
+//                        switch (status){
+//                            case 0:
+//                                userViewHolder.tvStatus.setTextColor(Color.RED);
+//                                userViewHolder.tvStatus.setText(R.string.text_offline);
+//                                break;
+//
+//                            case 1:
+//                                userViewHolder.tvStatus.setTextColor(Color.BLUE);
+//                                userViewHolder.tvStatus.setText(R.string.text_online);
+//                                break;
+//                        }
+//
+//                        final String name = user.getFirstName();
+//                        userViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                mSwipeManager.closeAllItems();
+//
+//                            }
+//                        });
+//
+//                        userViewHolder.cvButton_1.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//
+//                        userViewHolder.cvButton_2.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//
+//                        userViewHolder.cvButton_3.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//                    } catch (Exception mE) {
+//                        mE.printStackTrace();
+//                    }
+//                }
             }
 
             @Override

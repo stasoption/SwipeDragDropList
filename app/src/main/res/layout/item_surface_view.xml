@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:focusableInTouchMode="false"
+    android:clickable="false"
+    android:focusable="false"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="1dp"
+        android:clickable="true">
+
+        <!--content for SurfaceView-->
+        <LinearLayout
+            android:id="@+id/ll_holder_view"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvCounter"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textColor="@android:color/white"
+                android:text="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:background="@drawable/circle_counter"
+                android:gravity="center"
+                android:layout_marginLeft="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <!--TITLE-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:text="Some title"/>
+
+                    <TextView
+                        android:id="@+id/tvTitleDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+                </LinearLayout>
+
+
+                <!--SUB TITLE-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+
+                    <TextView
+                        android:id="@+id/tvSubTitleDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sub Title description"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:padding="@dimen/mid_margin"
+                android:text="Online"/>
+        </LinearLayout>
+        <!--end content for SurfaceView-->
+    </android.support.v7.widget.CardView>
+</LinearLayout>

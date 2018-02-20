@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_wrapper"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:focusableInTouchMode="false"
+    android:clickable="false"
+    android:focusable="false">
+
+    <!--content for BottomView-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvButton_1"
+        style="@style/DragDropCardView">
+
+        <LinearLayout
+            style="@style/DragDropLinear"
+            android:background="@color/color_option_2">
+            <ImageView
+                style="@style/DragDropIcon"
+                android:src="@android:drawable/ic_menu_call"
+                android:id="@+id/img_button_1_go_to_sender_or_getter"/>
+            <TextView
+                android:text="Action #1"
+                android:id="@+id/tv_button_1_go_to_sender_or_getter"
+                style="@style/DragDropTextView"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvButton_2"
+        style="@style/DragDropCardView">
+        <LinearLayout
+            style="@style/DragDropLinear"
+            android:background="@color/color_option_2">
+            <ImageView
+                style="@style/DragDropIcon"
+                android:src="@android:drawable/ic_dialog_email"
+                android:id="@+id/img_button_2_go_to_sender_or_getter"/>
+            <TextView
+                style="@style/DragDropTextView"
+                android:text="Action #2"
+                android:id="@+id/tv_button_2_go_to_sender_or_getter"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvButton_3"
+        style="@style/DragDropCardView">
+        <LinearLayout
+            style="@style/DragDropLinear"
+            android:background="@color/color_option_3">
+            <ImageView
+                style="@style/DragDropIcon"
+                android:src="@android:drawable/ic_menu_delete"
+                android:id="@+id/img_button_3_go_to_sender_or_getter"/>
+            <TextView
+                style="@style/DragDropTextView"
+                android:text="Action #3"
+                android:id="@+id/tv_button_3_go_to_sender_or_getter"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
