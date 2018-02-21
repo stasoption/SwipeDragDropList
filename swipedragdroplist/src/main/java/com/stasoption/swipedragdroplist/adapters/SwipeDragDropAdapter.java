@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,20 +37,21 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
-
+        SwipeItemMangerInterface,
         SwipeAdapterInterface {
 
     @NonNull
     private Context mContext;
     @NonNull
     private List<T> mData;
-
-    private SwipeLayout mSwipeLayout;
-    private View mSurfaceView;
-    private View mBottomView;
+    @NonNull
+    private List<SwipeLayout> mSwipeLayouts;
 
 
-//    public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
+//    private SwipeLayout mSwipeLayout;
+
+
+    public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
     @NonNull
     public abstract Context setContext();
@@ -65,39 +68,44 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     protected SwipeDragDropAdapter(@NonNull List<T> items){
         this.mData = items;
+        this.mSwipeLayouts = new ArrayList<>(mData.size());
         this.mContext = setContext();
+
+        mSwipeManager.setMode(Attributes.Mode.Single);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        mSurfaceView = getView(setSurfaceView(), null);
-        mBottomView = getView(setBottomView(), null);
-        mSwipeLayout = (SwipeLayout) getView(R.layout.layout_swipe, parent);
-
+        View surfaceView = getView(setSurfaceView(), null);
+        View bottomView = getView(setBottomView(), null);
+        SwipeLayout  swipeLayout = (SwipeLayout) getView(R.layout.layout_swipe, parent);
+        if(swipeLayout == null){
+            swipeLayout = new SwipeLayout(mContext);
+        }
         try {
-            mSwipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            swipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            mSwipeLayout.addView(mBottomView);
-            mSwipeLayout.addView(mSurfaceView);
+            swipeLayout.addView(bottomView);
+            swipeLayout.addView(surfaceView);
 
-            mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mBottomView);
+            swipeLayout.setDrag(SwipeLayout.DragEdge.Right, bottomView);
         }catch (Exception e){
             showException(e);
         }
 
-        return setViewHolder(mSwipeLayout);
+        RecyclerView.ViewHolder holder = setViewHolder(swipeLayout);
+        mSwipeLayouts.add(swipeLayout);
+
+        return holder;
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
-            SwipeItemManager swipeManager = new SwipeItemManager(this);
-            swipeManager.setMode(Attributes.Mode.Single);
-            swipeManager.bind(mSwipeLayout, position);
-
+            mSwipeManager.bind(mSwipeLayouts.get(position), position);
             onBindData(holder, mData.get(position), position);
         }catch (Exception e){
             showException(e);
@@ -163,51 +171,51 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Override
     public void notifyDatasetChanged() {notifyDataSetChanged();}
 
-//    @Override
-//    public void openItem(int position) {
-//        mSwipeManager.openItem(position);
-//    }
-//
-//    @Override
-//    public void closeItem(int position) {
-//        mSwipeManager.closeItem(position);
-//    }
-//
-//    @Override
-//    public void closeAllExcept(SwipeLayout layout) {
-//        mSwipeManager.closeAllExcept(layout);
-//    }
-//
-//    @Override
-//    public void closeAllItems() {
-//        mSwipeManager.closeAllItems();
-//    }
-//
-//    @Override
-//    public List<Integer> getOpenItems() {
-//        return mSwipeManager.getOpenItems();
-//    }
-//
-//    @Override
-//    public List<SwipeLayout> getOpenLayouts() {
-//        return mSwipeManager.getOpenLayouts();
-//    }
-//
-//    @Override
-//    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
-//
-//    @Override
-//    public boolean isOpen(int position) {
-//        return mSwipeManager.isOpen(position);
-//    }
-//
-//    @Override
-//    public Attributes.Mode getMode() {
-//        return mSwipeManager.getMode();
-//    }
-//
-//    @Override
-//    public void setMode(Attributes.Mode mode) {
-//        mSwipeManager.setMode(mode);
-//    }
+    @Override
+    public void openItem(int position) {
+        mSwipeManager.openItem(position);
+    }
+
+    @Override
+    public void closeItem(int position) {
+        mSwipeManager.closeItem(position);
+    }
+
+    @Override
+    public void closeAllExcept(SwipeLayout layout) {
+        mSwipeManager.closeAllExcept(layout);
+    }
+
+    @Override
+    public void closeAllItems() {
+        mSwipeManager.closeAllItems();
+    }
+
+    @Override
+    public List<Integer> getOpenItems() {
+        return mSwipeManager.getOpenItems();
+    }
+
+    @Override
+    public List<SwipeLayout> getOpenLayouts() {
+        return mSwipeManager.getOpenLayouts();
+    }
+
+    @Override
+    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
+
+    @Override
+    public boolean isOpen(int position) {
+        return mSwipeManager.isOpen(position);
+    }
+
+    @Override
+    public Attributes.Mode getMode() {
+        return mSwipeManager.getMode();
+    }
+
+    @Override
+    public void setMode(Attributes.Mode mode) {
+        mSwipeManager.setMode(mode);
+    }
 }

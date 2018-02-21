@@ -82,21 +82,21 @@ public class MainActivity extends AppCompatActivity {
                     holder.cvSurface.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            mSwipeManager.closeAllItems();
+                            mSwipeManager.closeAllItems();
                         }
                     });
 
                     holder.cvButton_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            mSwipeManager.closeAllItems();
+                            mSwipeManager.closeAllItems();
                         }
                     });
 
                     holder.cvButton_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            mSwipeManager.closeAllItems();
+                            mSwipeManager.closeAllItems();
                         }
                     });
 
