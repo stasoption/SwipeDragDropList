@@ -70,7 +70,30 @@ public class MainActivity extends AppCompatActivity {
             public void onBindData(UserViewHolder holder, User user, final int position) {
 
                 if(user!=null){
-                    try {
+
+                }
+            }
+
+            @Override
+            public void showException(Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+
+//        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(userAdapter);
+
+    }
+}
+
+
+/*
+*          try {
                         holder.tvCounter.setText(String.valueOf(position + 1));
                         holder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
                         holder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
@@ -121,22 +144,4 @@ public class MainActivity extends AppCompatActivity {
                     } catch (Exception mE) {
                         mE.printStackTrace();
                     }
-                }
-            }
-
-            @Override
-            public void showException(Exception e) {
-                e.printStackTrace();
-            }
-        };
-
-
-//        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(userAdapter);
-
-    }
-}
+* */

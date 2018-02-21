@@ -83,6 +83,10 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
             showException(e);
         }
 
+        RecyclerView.ViewHolder holder = new RecyclerView.ViewHolder(mSwipeLayout){};
+
+        U u = (U) holder;
+
         return new RecyclerView.ViewHolder(mSwipeLayout) {};
     }
 
@@ -114,7 +118,7 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
         return this.mData;
     }
 
-    public void setData( ArrayList<T> data){
+    public void setData(@NonNull ArrayList<T> data){
         mData = data;
         this.notifyDataSetChanged();
     }
