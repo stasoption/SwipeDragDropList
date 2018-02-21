@@ -3,6 +3,7 @@ package com.stasoption.swipedragdroplist.adapters;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -32,17 +34,19 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
         SwipeItemMangerInterface,
         SwipeAdapterInterface {
 
-    @Nullable
+    @NonNull
     private Context mContext;
+    @NonNull
+    private List<T> mData;
 
     private SwipeLayout mSwipeLayout;
     private View mSurfaceView;
     private View mBottomView;
 
-    private List<T> mData;
 
     public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
+    @NonNull
     public abstract Context setContext();
 
     public abstract int setSurfaceView();
@@ -53,17 +57,19 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
 
     public abstract void showException(Exception e);
 
-    protected SwipeDragDropAdapter(List<T> items){
+    protected SwipeDragDropAdapter(@NonNull List<T> items){
         this.mData = items;
-        mSwipeManager.setMode(Attributes.Mode.Single);
+        this.mContext = setContext();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        mContext = setContext();
+        mSwipeManager.setMode(Attributes.Mode.Single);
+
         mSurfaceView = getView(setSurfaceView());
         mBottomView = getView(setBottomView());
+
         try {
             mSwipeLayout = new SwipeLayout(mContext);
             mSwipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -76,6 +82,7 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
         }catch (Exception e){
             showException(e);
         }
+
         return new RecyclerView.ViewHolder(mSwipeLayout) {};
     }
 
@@ -114,6 +121,22 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
 
     public T getItem(int position){
         return this.mData.get(position);
+    }
+
+    @Override
+    public boolean onItemMoving(int fromPosition, int toPosition) {
+        mSwipeManager.closeAllItems();
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mData, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mData, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
     }
 
     @Override
