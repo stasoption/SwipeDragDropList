@@ -8,14 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
+import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
 
 
 public class SwipeItemManager implements SwipeItemMangerInterface {
 
-    private Attributes.Mode mode = Attributes.Mode.Single;
+    private SwipeDragDropAdapter.Mode mode = SwipeDragDropAdapter.Mode.SINGLE;
     private final int INVALID_POSITION = -1;
 
     private int mOpenPosition = INVALID_POSITION;
@@ -24,22 +24,18 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
     private Set<SwipeLayout> mShownLayouts = new HashSet<>();
 
     @Nullable
-    private SwipeAdapterInterface mSwipeAdapterInterface;
-    @Nullable
     private SwipeDragDropListener mSwipeDragDropListener;
 
-    public SwipeItemManager(@Nullable SwipeAdapterInterface swipeAdapterInterface) {
-        if (swipeAdapterInterface == null)
-            throw new IllegalArgumentException("SwipeAdapterInterface can not be null");
+    public SwipeItemManager() {
 
-        this.mSwipeAdapterInterface = swipeAdapterInterface;
     }
 
-    public Attributes.Mode getMode() {
+    public SwipeDragDropAdapter.Mode getMode() {
         return mode;
     }
 
-    public void setMode(Attributes.Mode mode) {
+
+    public void setMode(SwipeDragDropAdapter.Mode mode) {
         this.mode = mode;
         mOpenPositions.clear();
         mShownLayouts.clear();
@@ -69,14 +65,11 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
     @Override
     public void openItem(int position) {
-        if (mode == Attributes.Mode.Multiple) {
+        if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
             if (!mOpenPositions.contains(position))
                 mOpenPositions.add(position);
         } else {
             mOpenPosition = position;
-        }
-        if (mSwipeAdapterInterface != null) {
-            mSwipeAdapterInterface.notifyDatasetChanged();
         }
 
         if(mSwipeDragDropListener != null){
@@ -86,14 +79,11 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
     @Override
     public void closeItem(int position) {
-        if (mode == Attributes.Mode.Multiple) {
+        if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
             mOpenPositions.remove(position);
         } else {
             if (mOpenPosition == position)
                 mOpenPosition = INVALID_POSITION;
-        }
-        if (mSwipeAdapterInterface != null) {
-            mSwipeAdapterInterface.notifyDatasetChanged();
         }
 
         if(mSwipeDragDropListener != null){
@@ -111,7 +101,7 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
     @Override
     public void closeAllItems() {
-        if (mode == Attributes.Mode.Multiple) {
+        if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
             mOpenPositions.clear();
         } else {
             mOpenPosition = INVALID_POSITION;
@@ -128,7 +118,7 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
     @Override
     public List<Integer> getOpenItems() {
-        if (mode == Attributes.Mode.Multiple) {
+        if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
             return new ArrayList<Integer>(mOpenPositions);
         } else {
             return Collections.singletonList(mOpenPosition);
@@ -142,7 +132,7 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
     @Override
     public boolean isOpen(int position) {
-        if (mode == Attributes.Mode.Multiple) {
+        if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
             return mOpenPositions.contains(position);
         } else {
             return mOpenPosition == position;
@@ -194,7 +184,7 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
         @Override
         public void onClose(SwipeLayout layout) {
-            if (mode == Attributes.Mode.Multiple) {
+            if (mode == SwipeDragDropAdapter.Mode.MULTIPLE) {
                 mOpenPositions.remove(position);
             } else {
                 mOpenPosition = INVALID_POSITION;
@@ -207,14 +197,14 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
 
         @Override
         public void onStartOpen(SwipeLayout layout) {
-            if (mode == Attributes.Mode.Single) {
+            if (mode == SwipeDragDropAdapter.Mode.SINGLE) {
                 closeAllExcept(layout);
             }
         }
 
         @Override
         public void onOpen(SwipeLayout layout) {
-            if (mode == Attributes.Mode.Multiple)
+            if (mode == SwipeDragDropAdapter.Mode.MULTIPLE)
                 mOpenPositions.add(position);
             else {
                 closeAllExcept(layout);

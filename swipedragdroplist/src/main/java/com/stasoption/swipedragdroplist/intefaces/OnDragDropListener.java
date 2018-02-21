@@ -10,5 +10,5 @@ public interface OnDragDropListener {
      * @param fromPosition The start position of the moved item.
      * @param toPosition   Then resolved position of the moved item.
      */
-    boolean onItemMoving(int fromPosition, int toPosition);
+    void onItemMoving(int fromPosition, int toPosition);
 }

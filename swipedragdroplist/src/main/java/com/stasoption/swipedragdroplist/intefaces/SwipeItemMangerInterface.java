@@ -2,7 +2,7 @@ package com.stasoption.swipedragdroplist.intefaces;
 
 import java.util.List;
 
-import com.stasoption.swipedragdroplist.swiper.Attributes;
+import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 
@@ -28,7 +28,7 @@ public interface SwipeItemMangerInterface {
 
     boolean isOpen(int position);
 
-    Attributes.Mode getMode();
+    SwipeDragDropAdapter.Mode getMode();
 
-    void setMode(Attributes.Mode mode);
+    void setMode(SwipeDragDropAdapter.Mode mode);
 }

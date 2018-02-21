@@ -18,9 +18,7 @@ import java.util.List;
 import com.stasoption.swipedragdroplist.R;
 import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
-import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
-import com.stasoption.swipedragdroplist.swiper.Attributes;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
 import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
@@ -29,9 +27,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
-        OnDragDropListener,
-        SwipeAdapterInterface {
+public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnDragDropListener{
 
     @NonNull
     private Context mContext;
@@ -42,7 +38,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Nullable
     private SwipeDragDropListener mSwipeDragDropListener;
 
-    private final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
+    private final SwipeItemManager mSwipeManager = new SwipeItemManager();
 
     @NonNull
     public abstract Context setContext();
@@ -62,7 +58,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         this.mSwipeLayouts = new ArrayList<>(mData.size());
         this.mContext = setContext();
 
-        mSwipeManager.setMode(Attributes.Mode.Single);
+        mSwipeManager.setMode(Mode.SINGLE);
     }
 
     @Override
@@ -113,15 +109,6 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         mSwipeManager.setSwipeDragDropListener(swipeDragDropListener);
     }
 
-    @Nullable
-    private View getView(@LayoutRes int resId, ViewGroup parent){
-        try {
-            return LayoutInflater.from(mContext).inflate(resId, parent, false);
-        }catch (NullPointerException e){
-            return null;
-        }
-    }
-
     @Override
     public int getItemCount() {
         return this.mData.size();
@@ -141,7 +128,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     @Override
-    public boolean onItemMoving(int fromPosition, int toPosition) {
+    public void onItemMoving(int fromPosition, int toPosition) {
         closeAllItems();
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
@@ -157,47 +144,48 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         if(mSwipeDragDropListener != null){
             mSwipeDragDropListener.onItemDragged(fromPosition, toPosition);
         }
-        return true;
+    }
+
+    public void setMode(Mode mode) {
+        mSwipeManager.setMode(mode);
     }
 
     @SuppressWarnings("unchecked")
-    protected void onClickItem(T val, int position){
+    public void onClickItem(T val, int position){
         if(mSwipeDragDropListener != null){
             mSwipeDragDropListener.onItemClicked(val, position);
         }
     }
 
-    protected void openItem(int position) {
+    public void openItem(int position) {
         mSwipeManager.openItem(position);
     }
 
-    protected void closeItem(int position) {
+    public void closeItem(int position) {
         mSwipeManager.closeItem(position);
     }
 
-    protected void closeAllExcept(SwipeLayout layout) {
-        mSwipeManager.closeAllExcept(layout);
-    }
-
-    protected void closeAllItems() {
+    public void closeAllItems() {
         mSwipeManager.closeAllItems();
     }
 
-    protected List<Integer> getOpenItems() {
+    public List<Integer> getOpenItems() {
         return mSwipeManager.getOpenItems();
     }
 
-    protected void setMode(Attributes.Mode mode) {
-        mSwipeManager.setMode(mode);
+    @Nullable
+    private View getView(@LayoutRes int resId, ViewGroup parent){
+        try {
+            return LayoutInflater.from(mContext).inflate(resId, parent, false);
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
-    @Override
-    public int getPosition(int position) {
-        return position;
+    public enum Mode {
+
+        SINGLE, /*must showing just one item*/
+
+        MULTIPLE /*mode when same time showing several items*/
     }
-
-    @Override
-    public void notifyDatasetChanged() {notifyDataSetChanged();}
-
-
 }

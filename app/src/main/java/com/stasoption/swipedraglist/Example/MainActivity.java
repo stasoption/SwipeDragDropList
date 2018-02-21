@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                     holder.tvStatus.setText(user.getStatus() ? R.string.text_online : R.string.text_offline);
 
                     holder.mSurface.setOnClickListener(v -> {
+                        closeAllItems();
                         onItemClicked(user, position);
                     });
                     holder.mBottomBtn_1.setOnClickListener(v -> {
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
+        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
         mUserAdapter.bindToRecyclerView(mRecyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }

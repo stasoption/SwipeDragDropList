@@ -7,7 +7,7 @@ import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 
 
 /**
- * Created by Stas on 21.04.2017.
+ * @author Stas Averin
  */
 
 public class GenericTouchHelper extends ItemTouchHelper.Callback {
