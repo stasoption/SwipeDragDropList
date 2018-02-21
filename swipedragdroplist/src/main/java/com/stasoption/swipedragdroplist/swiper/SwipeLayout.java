@@ -422,8 +422,8 @@ public class SwipeLayout extends FrameLayout {
     }
 
     /**
-     * the dispatchRevealEvent method may not always get accurate position, it
-     * makes the view may not always get the event when the view is totally
+     * the dispatchRevealEvent method may not always getPosition accurate position, it
+     * makes the view may not always getPosition the event when the view is totally
      * show( fraction = 1), so , we need to calculate every time.
      */
     protected boolean isViewTotallyFirstShowed(View child, Rect relativePosition, DragEdge edge, int surfaceLeft,
@@ -565,7 +565,7 @@ public class SwipeLayout extends FrameLayout {
     }
 
     /**
-     * prevent bottom view get any touch event. Especially in LayDown mode.
+     * prevent bottom view getPosition any touch event. Especially in LayDown mode.
      */
     private void safeBottomView() {
         Status status = getOpenStatus();
@@ -1289,7 +1289,7 @@ public class SwipeLayout extends FrameLayout {
     }
 
     /**
-     * get the open status.
+     * getPosition the open status.
      *
      * Middle.
      */

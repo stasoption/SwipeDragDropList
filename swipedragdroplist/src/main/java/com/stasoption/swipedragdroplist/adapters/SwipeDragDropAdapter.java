@@ -25,6 +25,7 @@ import com.stasoption.swipedragdroplist.R;
 import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
+import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
 import com.stasoption.swipedragdroplist.swiper.Attributes;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
@@ -47,8 +48,8 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @NonNull
     private List<SwipeLayout> mSwipeLayouts;
 
-
-//    private SwipeLayout mSwipeLayout;
+    @Nullable
+    private SwipeDragDropListener<T> mSwipeDragDropListener;
 
 
     public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
@@ -120,6 +121,10 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         recyclerView.setAdapter(this);
     }
 
+    public void setSwipeDragDropListener(@NonNull SwipeDragDropListener<T> swipeDragDropListener){
+        mSwipeDragDropListener = swipeDragDropListener;
+    }
+
     @Nullable
     private View getView(@LayoutRes int resId, ViewGroup parent){
         try {
@@ -164,8 +169,8 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     @Override
-    public int getSwipeLayoutResourceId(int position) {
-        return 0;
+    public int getPosition(int position) {
+        return position;
     }
 
     @Override

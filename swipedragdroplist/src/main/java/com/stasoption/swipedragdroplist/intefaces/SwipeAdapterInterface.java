@@ -6,7 +6,7 @@ package com.stasoption.swipedragdroplist.intefaces;
 
 public interface SwipeAdapterInterface {
 
-    int getSwipeLayoutResourceId(int position);
+    int getPosition(int position);
     
     void notifyDatasetChanged();
 }
