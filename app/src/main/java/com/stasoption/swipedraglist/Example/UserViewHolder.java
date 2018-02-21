@@ -10,7 +10,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 import com.stasoption.swipedraglist.R;
 
 /**
- * Created by Stas on 21.04.2017.
+ * @author Stas Averin
  */
 
 public class UserViewHolder extends RecyclerView.ViewHolder{

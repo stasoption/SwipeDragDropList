@@ -7,17 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-import com.stasoption.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
+import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedraglist.R;
 import com.stasoption.swipedraglist.Model.User;
@@ -38,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<User> testUserArrayList = new ArrayList<>();
         testUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
         testUserArrayList.add(new User("Steve", "Rogers", "cwilliams@gmail.com", 29, 0));
-        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
-        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, 1));
-        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, 0));
-        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
+//        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
+//        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, 1));
+//        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, 0));
+//        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
 
 
-        SwipeDragDropGenericAdapter<User, UserViewHolder> userAdapter = new SwipeDragDropGenericAdapter<User, UserViewHolder>(testUserArrayList) {
+        SwipeDragDropAdapter<User, UserViewHolder> userAdapter = new SwipeDragDropAdapter<User, UserViewHolder>(testUserArrayList) {
 
             @Override
             public Context setContext() {
-                return getApplicationContext();
+                return MainActivity.this;
             }
 
 //            @Override
@@ -59,15 +54,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 
             @Override
-            public View setSurfaceView(ViewGroup parent) {
-                return LayoutInflater.from(mContext)
-                        .inflate(R.layout.item_surface_view, parent, false);
+            public int setSurfaceView() {
+                return R.layout.item_surface_view;
             }
 
             @Override
-            public View setBottomView(ViewGroup parent) {
-                return LayoutInflater.from(mContext)
-                        .inflate(R.layout.item_bottom_view, parent, false);
+            public int setBottomView() {
+                return R.layout.item_bottom_view;
             }
 
             /**/
@@ -130,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            public void showException(Exception e) {
+                e.printStackTrace();
+            }
+
+            @Override
             public boolean onItemMoving(int fromPosition, int toPosition) {
                 mSwipeManager.closeAllItems();
                 if (fromPosition < toPosition) {
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

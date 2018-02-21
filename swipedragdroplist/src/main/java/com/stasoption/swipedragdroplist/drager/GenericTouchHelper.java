@@ -3,7 +3,7 @@ package com.stasoption.swipedragdroplist.drager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.stasoption.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
+import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 
 
 /**
@@ -12,9 +12,9 @@ import com.stasoption.swipedragdroplist.adapters.SwipeDragDropGenericAdapter;
 
 public class GenericTouchHelper extends ItemTouchHelper.Callback {
 
-    private final SwipeDragDropGenericAdapter mAdapter;
+    private final SwipeDragDropAdapter mAdapter;
 
-    public GenericTouchHelper(SwipeDragDropGenericAdapter adapter) {
+    public GenericTouchHelper(SwipeDragDropAdapter adapter) {
         mAdapter = adapter;
     }
 

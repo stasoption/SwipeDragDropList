@@ -1,11 +1,15 @@
 package com.stasoption.swipedragdroplist.adapters;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +27,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropGenericAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
         SwipeItemMangerInterface,
         SwipeAdapterInterface {
@@ -41,31 +45,37 @@ public abstract class SwipeDragDropGenericAdapter<T, U extends RecyclerView.View
 
     public abstract Context setContext();
 
-    public abstract View setSurfaceView(ViewGroup parent);
+    public abstract int setSurfaceView();
 
-    public abstract View setBottomView(ViewGroup parent);
+    public abstract int setBottomView();
 
     public abstract void onBindData(U holder, T val, int position);
 
-    protected SwipeDragDropGenericAdapter(List<T> items){
+    public abstract void showException(Exception e);
+
+    protected SwipeDragDropAdapter(List<T> items){
         this.mData = items;
         mSwipeManager.setMode(Attributes.Mode.Single);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         mContext = setContext();
-        mSurfaceView = setSurfaceView(parent);
-        mBottomView = setBottomView(parent);
+        mSurfaceView = getView(setSurfaceView());
+        mBottomView = getView(setBottomView());
+        try {
+            mSwipeLayout = new SwipeLayout(mContext);
+            mSwipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        mSwipeLayout = new SwipeLayout(mContext);
-        mSwipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mBottomView);
+            mSwipeLayout.addView(mBottomView);
+            mSwipeLayout.addView(mSurfaceView);
 
-        mSwipeLayout.addView(mBottomView);
-        mSwipeLayout.addView(mSurfaceView);
-
+            mSwipeLayout.setDrag(SwipeLayout.DragEdge.Right, mBottomView);
+        }catch (Exception e){
+            showException(e);
+        }
         return new RecyclerView.ViewHolder(mSwipeLayout) {};
     }
 
@@ -75,7 +85,16 @@ public abstract class SwipeDragDropGenericAdapter<T, U extends RecyclerView.View
             mSwipeManager.bind(mSwipeLayout, position);
             onBindData((U) holder, mData.get(position), position);
         }catch (Exception e){
-            e.printStackTrace();
+            showException(e);
+        }
+    }
+
+    @Nullable
+    private View getView(@LayoutRes int resId){
+        try {
+            return LayoutInflater.from(mContext).inflate(resId, null, false);
+        }catch (NullPointerException e){
+            return null;
         }
     }
 
@@ -88,7 +107,7 @@ public abstract class SwipeDragDropGenericAdapter<T, U extends RecyclerView.View
         return this.mData;
     }
 
-    public void setItems( ArrayList<T> data){
+    public void setData( ArrayList<T> data){
         mData = data;
         this.notifyDataSetChanged();
     }
