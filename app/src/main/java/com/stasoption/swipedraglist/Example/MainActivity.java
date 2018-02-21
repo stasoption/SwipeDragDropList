@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
 
 
-        SwipeDragDropAdapter<User, UserViewHolder> userAdapter = new SwipeDragDropAdapter<User, UserViewHolder>(testUserArrayList) {
+        SwipeDragDropAdapter<User> userAdapter = new SwipeDragDropAdapter<User>(testUserArrayList) {
 
             @NonNull
             @Override
@@ -66,7 +66,66 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBindData(UserViewHolder holder, User user, int position) {
+            public RecyclerView.ViewHolder setViewHolder(View view) {
+                return new UserViewHolder(view);
+            }
+
+            @Override
+            public void onBindData(RecyclerView.ViewHolder h, User user, int position) {
+
+                UserViewHolder holder = (UserViewHolder) h;
+                try {
+                    holder.tvCounter.setText(String.valueOf(position + 1));
+                    holder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
+                    holder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
+                    holder.tvSubTitleDescription.setText(user.getMail());
+
+                    int status = user.getStatus();
+                    switch (status){
+                        case 0:
+                            holder.tvStatus.setTextColor(Color.RED);
+                            holder.tvStatus.setText(R.string.text_offline);
+                            break;
+
+                        case 1:
+                            holder.tvStatus.setTextColor(Color.BLUE);
+                            holder.tvStatus.setText(R.string.text_online);
+                            break;
+                    }
+
+                    final String name = user.getFirstName();
+                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mSwipeManager.closeAllItems();
+
+                        }
+                    });
+
+                    holder.cvButton_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+
+                    holder.cvButton_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+
+                    holder.cvButton_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                } catch (Exception mE) {
+                    mE.printStackTrace();
+                }
+
 
             }
 
@@ -88,56 +147,4 @@ public class MainActivity extends AppCompatActivity {
 }
 
 
-/*
-*          try {
-                        holder.tvCounter.setText(String.valueOf(position + 1));
-                        holder.tvTitle.setText(user.getFirstName() + " " + user.getLastName());
-                        holder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
-                        holder.tvSubTitleDescription.setText(user.getMail());
 
-                        int status = user.getStatus();
-                        switch (status){
-                            case 0:
-                                holder.tvStatus.setTextColor(Color.RED);
-                                holder.tvStatus.setText(R.string.text_offline);
-                                break;
-
-                            case 1:
-                                holder.tvStatus.setTextColor(Color.BLUE);
-                                holder.tvStatus.setText(R.string.text_online);
-                                break;
-                        }
-
-                        final String name = user.getFirstName();
-                        holder.cardView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mSwipeManager.closeAllItems();
-
-                            }
-                        });
-
-                        holder.cvButton_1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-
-                        holder.cvButton_2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-
-                        holder.cvButton_3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-                    } catch (Exception mE) {
-                        mE.printStackTrace();
-                    }
-* */

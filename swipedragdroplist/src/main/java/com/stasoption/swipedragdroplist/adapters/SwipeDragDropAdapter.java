@@ -30,7 +30,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<U> implements
+public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
         SwipeItemMangerInterface,
         SwipeAdapterInterface {
@@ -54,7 +54,9 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
 
     public abstract int setBottomView();
 
-    public abstract void onBindData(U holder, T val, int position);
+    public abstract RecyclerView.ViewHolder setViewHolder(View view);
+
+    public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
 
     public abstract void showException(Exception e);
 
@@ -64,7 +66,7 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
     }
 
     @Override
-    public U onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         mSwipeManager.setMode(Attributes.Mode.Single);
 
@@ -84,12 +86,12 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
             showException(e);
         }
 
-        return (U) new RecyclerView.ViewHolder(mSwipeLayout){};
+        return setViewHolder(mSwipeLayout);
     }
 
 
     @Override
-    public void onBindViewHolder(U holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
             mSwipeManager.bind(mSwipeLayout, position);
             onBindData(holder, mData.get(position), position);
