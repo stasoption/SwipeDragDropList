@@ -20,7 +20,6 @@ import com.stasoption.swipedraglist.Model.User;
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<User> {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
     private SwipeDragDropAdapter<User> mUserAdapter;
     private RecyclerView mRecyclerView;
 
@@ -75,15 +74,15 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                     holder.tvStatus.setText(user.getStatus() ? R.string.text_online : R.string.text_offline);
 
                     holder.mSurface.setOnClickListener(v -> {
-//                        onItemClicked(user, position);
+                        onItemClicked(user, position);
                     });
                     holder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d(TAG, position + ". " + user.getName());
+                        Log.d("Button 1 clicked", position + ". " + user.getName());
                     });
                     holder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d(TAG, position + ". " + user.getName());
+                        Log.d("Button 2 clicked", position + ". " + user.getName());
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -102,22 +101,22 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
 
     @Override
     public void onItemClicked(@Nullable User val, int position) {
-        Log.e("onItemClicked", position + ". " + val.getName());
+        Log.d("onItemClicked", position + ". " + val.getName());
     }
 
     @Override
     public void onItemOpened(int position) {
-        Log.e("onItemOpened", position + ". " + mUserAdapter.getItem(position).getName());
+        Log.d("onItemOpened", position + ". " + mUserAdapter.getItem(position).getName());
     }
 
     @Override
     public void onItemClosed(int position) {
-        Log.e("onItemClosed", position + ". " + mUserAdapter.getItem(position).getName());
+        Log.d("onItemClosed", position + ". " + mUserAdapter.getItem(position).getName());
     }
 
     @Override
     public void onItemDragged(int from, int to) {
-        Log.e("onItemDragged", from + ". " + to);
+        Log.d("onItemDragged", from + ". " + to);
     }
 }
 
