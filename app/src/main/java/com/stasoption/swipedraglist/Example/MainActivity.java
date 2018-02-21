@@ -10,36 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-
+import com.squareup.picasso.Picasso;
 import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
+import com.stasoption.swipedraglist.Model.Avenger;
 import com.stasoption.swipedraglist.R;
-import com.stasoption.swipedraglist.Model.User;
 
 
-public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<User> {
+public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<Avenger> {
 
-    private SwipeDragDropAdapter<User> mUserAdapter;
-    private RecyclerView mRecyclerView;
+    private SwipeDragDropAdapter<Avenger> mUserAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        ArrayList<User> testUserArrayList = new ArrayList<>();
-        testUserArrayList.add(new User("Stas Averin", "averin.developer@gmail.com", "31 years", true));
-        testUserArrayList.add(new User("Steve Rogers", "cwilliams@gmail.com", "29 years", false));
-        testUserArrayList.add(new User("Peter Parker", "pete@gmail.com", "21 years", false));
-        testUserArrayList.add(new User("Natasha Romanoff",  "pwong@gmail.com", "28 years", true));
-        testUserArrayList.add(new User("Tony Stark", "bmartinez@gmail.com", "45 years", false));
-        testUserArrayList.add(new User("Bruce Banner", "ralph_washington@gmail.com", "41 years", true));
-
-
-        mUserAdapter = new SwipeDragDropAdapter<User>(testUserArrayList) {
+        mUserAdapter = new SwipeDragDropAdapter<Avenger>(Avenger.getAvengers()) {
 
             @NonNull
             @Override
@@ -63,27 +52,30 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder h, User user, int position) {
+            public void onBindData(RecyclerView.ViewHolder h, Avenger avenger, int position) {
                 UserViewHolder holder = (UserViewHolder) h;
                 try {
-                    holder.tvNumber.setText(String.valueOf(position + 1));
-                    holder.tvName.setText(user.getName());
-                    holder.tvAge.setText(user.getAge());
-                    holder.tvEmail.setText(user.getMail());
-                    holder.tvStatus.setTextColor(user.getStatus() ? Color.BLUE :Color.RED);
-                    holder.tvStatus.setText(user.getStatus() ? R.string.text_online : R.string.text_offline);
+                    Picasso.with(MainActivity.this)
+                            .load(avenger.getAvatar())
+                            .into(holder.mAvatar);
+
+                    holder.tvName.setText(avenger.getName());
+                    holder.tvAge.setText(avenger.getAge());
+                    holder.tvEmail.setText(avenger.getMail());
+                    holder.tvStatus.setTextColor(avenger.getStatus() ? Color.BLUE :Color.RED);
+                    holder.tvStatus.setText(avenger.getStatus() ? R.string.text_online : R.string.text_offline);
 
                     holder.mSurface.setOnClickListener(v -> {
                         closeAllItems();
-                        onItemClicked(user, position);
+                        onItemClicked(avenger, position);
                     });
                     holder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 1 clicked", position + ". " + user.getName());
+                        Log.d("Button 1 clicked", position + ". " + avenger.getName());
                     });
                     holder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 2 clicked", position + ". " + user.getName());
+                        Log.d("Button 2 clicked", position + ". " + avenger.getName());
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,12 +89,12 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
         };
 
         mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
-        mUserAdapter.bindToRecyclerView(mRecyclerView);
+        mUserAdapter.bindToRecyclerView(recyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }
 
     @Override
-    public void onItemClicked(@Nullable User val, int position) {
+    public void onItemClicked(@Nullable Avenger val, int position) {
         Log.d("onItemClicked", position + ". " + val.getName());
     }
 

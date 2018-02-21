@@ -38,6 +38,8 @@ dependencies {
     //circle stroke for imageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     compile project(':swipedragdroplist')
     testCompile 'junit:junit:4.12'
 }
