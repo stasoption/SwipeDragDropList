@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import com.stasoption.swipedragdroplist.R;
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
@@ -29,7 +30,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<U> implements
         OnDragDropListener,
         SwipeItemMangerInterface,
         SwipeAdapterInterface {
@@ -63,15 +64,15 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public U onCreateViewHolder(ViewGroup parent, int viewType) {
 
         mSwipeManager.setMode(Attributes.Mode.Single);
 
-        mSurfaceView = getView(setSurfaceView());
-        mBottomView = getView(setBottomView());
+        mSurfaceView = getView(setSurfaceView(), null);
+        mBottomView = getView(setBottomView(), null);
+        mSwipeLayout = (SwipeLayout) getView(R.layout.layout_swipe, parent);
 
         try {
-            mSwipeLayout = new SwipeLayout(mContext);
             mSwipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -83,27 +84,24 @@ public abstract class SwipeDragDropAdapter<T, U extends RecyclerView.ViewHolder>
             showException(e);
         }
 
-        RecyclerView.ViewHolder holder = new RecyclerView.ViewHolder(mSwipeLayout){};
-
-        U u = (U) holder;
-
-        return new RecyclerView.ViewHolder(mSwipeLayout) {};
+        return (U) new RecyclerView.ViewHolder(mSwipeLayout){};
     }
 
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(U holder, int position) {
         try {
             mSwipeManager.bind(mSwipeLayout, position);
-            onBindData((U) holder, mData.get(position), position);
+            onBindData(holder, mData.get(position), position);
         }catch (Exception e){
             showException(e);
         }
     }
 
     @Nullable
-    private View getView(@LayoutRes int resId){
+    private View getView(@LayoutRes int resId, ViewGroup parent){
         try {
-            return LayoutInflater.from(mContext).inflate(resId, null, false);
+            return LayoutInflater.from(mContext).inflate(resId, parent, false);
         }catch (NullPointerException e){
             return null;
         }

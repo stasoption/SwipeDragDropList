@@ -65,13 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 return R.layout.item_bottom_view;
             }
 
-            /**/
             @Override
-            public void onBindData(UserViewHolder holder, User user, final int position) {
+            public void onBindData(UserViewHolder holder, User user, int position) {
 
-                if(user!=null){
-
-                }
             }
 
             @Override
