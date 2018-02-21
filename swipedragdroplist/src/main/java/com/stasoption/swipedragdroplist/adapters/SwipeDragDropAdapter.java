@@ -35,7 +35,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
-        SwipeItemMangerInterface,
+
         SwipeAdapterInterface {
 
     @NonNull
@@ -48,7 +48,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     private View mBottomView;
 
 
-    public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
+//    public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
     @NonNull
     public abstract Context setContext();
@@ -70,8 +70,6 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        mSwipeManager.setMode(Attributes.Mode.Single);
 
         mSurfaceView = getView(setSurfaceView(), null);
         mBottomView = getView(setBottomView(), null);
@@ -96,7 +94,10 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
-            mSwipeManager.bind(mSwipeLayout, position);
+            SwipeItemManager swipeManager = new SwipeItemManager(this);
+            swipeManager.setMode(Attributes.Mode.Single);
+            swipeManager.bind(mSwipeLayout, position);
+
             onBindData(holder, mData.get(position), position);
         }catch (Exception e){
             showException(e);
@@ -140,7 +141,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     @Override
     public boolean onItemMoving(int fromPosition, int toPosition) {
-        mSwipeManager.closeAllItems();
+//        mSwipeManager.closeAllItems();
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mData, i, i + 1);
@@ -162,51 +163,51 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Override
     public void notifyDatasetChanged() {notifyDataSetChanged();}
 
-    @Override
-    public void openItem(int position) {
-        mSwipeManager.openItem(position);
-    }
-
-    @Override
-    public void closeItem(int position) {
-        mSwipeManager.closeItem(position);
-    }
-
-    @Override
-    public void closeAllExcept(SwipeLayout layout) {
-        mSwipeManager.closeAllExcept(layout);
-    }
-
-    @Override
-    public void closeAllItems() {
-        mSwipeManager.closeAllItems();
-    }
-
-    @Override
-    public List<Integer> getOpenItems() {
-        return mSwipeManager.getOpenItems();
-    }
-
-    @Override
-    public List<SwipeLayout> getOpenLayouts() {
-        return mSwipeManager.getOpenLayouts();
-    }
-
-    @Override
-    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
-
-    @Override
-    public boolean isOpen(int position) {
-        return mSwipeManager.isOpen(position);
-    }
-
-    @Override
-    public Attributes.Mode getMode() {
-        return mSwipeManager.getMode();
-    }
-
-    @Override
-    public void setMode(Attributes.Mode mode) {
-        mSwipeManager.setMode(mode);
-    }
+//    @Override
+//    public void openItem(int position) {
+//        mSwipeManager.openItem(position);
+//    }
+//
+//    @Override
+//    public void closeItem(int position) {
+//        mSwipeManager.closeItem(position);
+//    }
+//
+//    @Override
+//    public void closeAllExcept(SwipeLayout layout) {
+//        mSwipeManager.closeAllExcept(layout);
+//    }
+//
+//    @Override
+//    public void closeAllItems() {
+//        mSwipeManager.closeAllItems();
+//    }
+//
+//    @Override
+//    public List<Integer> getOpenItems() {
+//        return mSwipeManager.getOpenItems();
+//    }
+//
+//    @Override
+//    public List<SwipeLayout> getOpenLayouts() {
+//        return mSwipeManager.getOpenLayouts();
+//    }
+//
+//    @Override
+//    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
+//
+//    @Override
+//    public boolean isOpen(int position) {
+//        return mSwipeManager.isOpen(position);
+//    }
+//
+//    @Override
+//    public Attributes.Mode getMode() {
+//        return mSwipeManager.getMode();
+//    }
+//
+//    @Override
+//    public void setMode(Attributes.Mode mode) {
+//        mSwipeManager.setMode(mode);
+//    }
 }

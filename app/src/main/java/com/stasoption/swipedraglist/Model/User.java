@@ -6,31 +6,24 @@ package com.stasoption.swipedraglist.Model;
 
 public class User {
 
-    private String mFirstName, mLastName, mMail;
+    private String mName, mMail;
     private int mAge;
     private boolean mStatus;
 
-    public User(String firstName, String lastName, String mMail, int age, boolean status){
-        setFirstName(firstName);
-        setLastName(lastName);
+    public User(String name, String mMail, int age, boolean status){
+        setName(name);
         setMail(mMail);
         setAge(age);
         setStatus(status);
     }
 
-    public void setFirstName(String name){
-        mFirstName = name;
+    public void setName(String name){
+        mName = name;
     }
-    public String getFirstName(){
-        return mFirstName;
+    public String getName(){
+        return mName;
     }
 
-    public void setLastName(String name){
-        mLastName = name;
-    }
-    public String getLastName(){
-        return mLastName;
-    }
 
     public void setMail(String addresss){
         mMail = addresss;
@@ -55,6 +48,6 @@ public class User {
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName() + " " + getMail() + " " + getAge();
+        return getName() + " " + getMail() + " " + getAge();
     }
 }
