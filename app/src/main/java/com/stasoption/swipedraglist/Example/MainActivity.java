@@ -5,16 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
-import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedraglist.R;
 import com.stasoption.swipedraglist.Model.User;
 
@@ -32,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         ArrayList<User> testUserArrayList = new ArrayList<>();
-        testUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
-        testUserArrayList.add(new User("Steve", "Rogers", "cwilliams@gmail.com", 29, 0));
-        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
-        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, 1));
-        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, 0));
-        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
+        testUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, true));
+        testUserArrayList.add(new User("Steve", "Rogers", "cwilliams@gmail.com", 29, false));
+        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, false));
+        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, true));
+        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, false));
+        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, true));
 
 
         SwipeDragDropAdapter<User> userAdapter = new SwipeDragDropAdapter<User>(testUserArrayList) {
@@ -80,21 +76,11 @@ public class MainActivity extends AppCompatActivity {
                     holder.tvTitleDescription.setText(String.valueOf(user.getAge()).concat(" years"));
                     holder.tvSubTitleDescription.setText(user.getMail());
 
-                    int status = user.getStatus();
-                    switch (status){
-                        case 0:
-                            holder.tvStatus.setTextColor(Color.RED);
-                            holder.tvStatus.setText(R.string.text_offline);
-                            break;
-
-                        case 1:
-                            holder.tvStatus.setTextColor(Color.BLUE);
-                            holder.tvStatus.setText(R.string.text_online);
-                            break;
-                    }
+                    holder.tvStatus.setTextColor(user.getStatus() ? Color.BLUE :Color.RED);
+                    holder.tvStatus.setText(user.getStatus() ? R.string.text_online : R.string.text_offline);
 
                     final String name = user.getFirstName();
-                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    holder.cvSurface.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mSwipeManager.closeAllItems();
@@ -115,12 +101,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    holder.cvButton_3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
                 } catch (Exception mE) {
                     mE.printStackTrace();
                 }

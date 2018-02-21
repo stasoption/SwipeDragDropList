@@ -7,9 +7,10 @@ package com.stasoption.swipedraglist.Model;
 public class User {
 
     private String mFirstName, mLastName, mMail;
-    private int mAge, mStatus;
+    private int mAge;
+    private boolean mStatus;
 
-    public User(String firstName, String lastName, String mMail, int age, int status){
+    public User(String firstName, String lastName, String mMail, int age, boolean status){
         setFirstName(firstName);
         setLastName(lastName);
         setMail(mMail);
@@ -38,10 +39,10 @@ public class User {
         return mMail;
     }
 
-    public void setStatus(int status){
+    public void setStatus(boolean status){
         mStatus = status;
     }
-    public int getStatus(){
+    public boolean getStatus(){
         return mStatus;
     }
 
