@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.stasoption.swipedraglist.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * @author Stas Averin
  */
@@ -16,7 +18,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
     CardView mSurface;
     CardView mBottomBtn_1, mBottomBtn_2;
 
-    TextView tvNumber, tvName, tvAge, tvEmail, tvStatus;
+    de.hdodenhof.circleimageview.CircleImageView mAvatar;
+    TextView tvName, tvAge, tvEmail, tvStatus;
 
     UserViewHolder(View itemView) {
         super(itemView);
@@ -24,7 +27,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
         mBottomBtn_1 = itemView.findViewById(R.id.cvButton_1);
         mBottomBtn_2 = itemView.findViewById(R.id.cvButton_2);
 
-        tvNumber = itemView.findViewById(R.id.tvCounter);
+        mAvatar = itemView.findViewById(R.id.tvAvatar);
         tvName = itemView.findViewById(R.id.tvTitle);
         tvAge = itemView.findViewById(R.id.tvTitleDescription);
         tvEmail = itemView.findViewById(R.id.tvSubTitleDescription);
