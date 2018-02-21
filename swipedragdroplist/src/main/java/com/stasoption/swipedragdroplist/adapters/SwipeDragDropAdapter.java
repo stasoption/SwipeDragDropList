@@ -5,7 +5,9 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import com.stasoption.swipedragdroplist.R;
+import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
@@ -98,6 +101,14 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         }catch (Exception e){
             showException(e);
         }
+    }
+
+    public void bindToRecyclerView(@NonNull RecyclerView recyclerView){
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        ItemTouchHelper.Callback callback = new GenericTouchHelper(this);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+        recyclerView.setAdapter(this);
     }
 
     @Nullable

@@ -11,6 +11,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  */
 
 public interface SwipeItemMangerInterface {
+
     void openItem(int position);
 
     void closeItem(int position);

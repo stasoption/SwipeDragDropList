@@ -1,7 +1,7 @@
 package com.stasoption.swipedragdroplist.intefaces;
 
 /**
- * Created by Stas on 11.04.2017.
+ * @author Stas Averin
  */
 
 public interface OnDragDropListener {

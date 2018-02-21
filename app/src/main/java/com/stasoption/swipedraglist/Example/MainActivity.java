@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<User> testUserArrayList = new ArrayList<>();
         testUserArrayList.add(new User("Stas", "Averin", "averin.developer@gmail.com", 31, 1));
         testUserArrayList.add(new User("Steve", "Rogers", "cwilliams@gmail.com", 29, 0));
-//        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
-//        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, 1));
-//        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, 0));
-//        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
+        testUserArrayList.add(new User("Peter", "Parker", "pete@gmail.com", 21, 0));
+        testUserArrayList.add(new User("Natasha", "Romanoff", "pwong@gmail.com", 28, 1));
+        testUserArrayList.add(new User("Tony", "Stark", "bmartinez@gmail.com", 45, 0));
+        testUserArrayList.add(new User("Bruce", "Banner", "ralph_washington@gmail.com", 41, 1));
 
 
         SwipeDragDropAdapter<User> userAdapter = new SwipeDragDropAdapter<User>(testUserArrayList) {
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             mSwipeManager.closeAllItems();
-
                         }
                     });
 
@@ -137,12 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        ItemTouchHelper.Callback callback = new GenericTouchHelper(userAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(userAdapter);
-
+     userAdapter.bindToRecyclerView(mRecyclerView);
     }
 }
 
