@@ -1,6 +1,7 @@
 package com.stasoption.swipedragdroplist.intefaces;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * @author Stas Averin
@@ -8,13 +9,11 @@ import android.support.annotation.NonNull;
 
 public interface SwipeDragDropListener<T> {
 
-    void onCLickItem(@NonNull T val, int position);
+    void onItemClicked(@Nullable T val,  int position);
 
-    void onItemOpened(@NonNull T val, int position);
+    void onItemOpened(int position);
 
-    void onItemClosed(@NonNull T val, int position);
+    void onItemClosed(int position);
 
-    void onAllItemsClosed();
-
-    void onItemDragged(int from, int to, @NonNull T val);
+    void onItemDragged(int from, int to);
 }

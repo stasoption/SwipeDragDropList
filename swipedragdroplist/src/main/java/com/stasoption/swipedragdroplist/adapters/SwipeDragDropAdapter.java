@@ -1,32 +1,25 @@
 package com.stasoption.swipedragdroplist.adapters;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Supplier;
 
 import com.stasoption.swipedragdroplist.R;
 import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
 import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
-import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
 import com.stasoption.swipedragdroplist.swiper.Attributes;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
 import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
@@ -38,7 +31,6 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         OnDragDropListener,
-        SwipeItemMangerInterface,
         SwipeAdapterInterface {
 
     @NonNull
@@ -47,12 +39,10 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     private List<T> mData;
     @NonNull
     private List<SwipeLayout> mSwipeLayouts;
-
     @Nullable
-    private SwipeDragDropListener<T> mSwipeDragDropListener;
+    private SwipeDragDropListener mSwipeDragDropListener;
 
-
-    public final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
+    private final SwipeItemManager mSwipeManager = new SwipeItemManager(this);
 
     @NonNull
     public abstract Context setContext();
@@ -65,7 +55,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
 
-    public abstract void showException(Exception e);
+    public abstract void onExceptionReceived(Exception e);
 
     protected SwipeDragDropAdapter(@NonNull List<T> items){
         this.mData = items;
@@ -92,8 +82,9 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
             swipeLayout.addView(surfaceView);
 
             swipeLayout.setDrag(SwipeLayout.DragEdge.Right, bottomView);
+
         }catch (Exception e){
-            showException(e);
+            onExceptionReceived(e);
         }
 
         RecyclerView.ViewHolder holder = setViewHolder(swipeLayout);
@@ -104,12 +95,24 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
-            mSwipeManager.bind(mSwipeLayouts.get(position), position);
+            SwipeLayout swipeLayout = mSwipeLayouts.get(position);
+
+//            swipeLayout.setOnClickListener((v) ->{
+//                try {
+//                    T val = mData.get(position);
+//                    onClickItem(val, position);
+//                }catch (Exception e){
+//                    onClickItem(null, position);
+//                }
+//            });
+
+            mSwipeManager.bind(swipeLayout, position);
             onBindData(holder, mData.get(position), position);
         }catch (Exception e){
-            showException(e);
+            onExceptionReceived(e);
         }
     }
 
@@ -121,8 +124,9 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         recyclerView.setAdapter(this);
     }
 
-    public void setSwipeDragDropListener(@NonNull SwipeDragDropListener<T> swipeDragDropListener){
+    public void setSwipeDragDropListener(@NonNull SwipeDragDropListener swipeDragDropListener){
         mSwipeDragDropListener = swipeDragDropListener;
+        mSwipeManager.setSwipeDragDropListener(swipeDragDropListener);
     }
 
     @Nullable
@@ -154,7 +158,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     @Override
     public boolean onItemMoving(int fromPosition, int toPosition) {
-//        mSwipeManager.closeAllItems();
+        closeAllItems();
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(mData, i, i + 1);
@@ -165,7 +169,42 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+
+        if(mSwipeDragDropListener != null){
+            mSwipeDragDropListener.onItemDragged(fromPosition, toPosition);
+        }
         return true;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void onClickItem(T val, int position){
+        if(mSwipeDragDropListener != null){
+            mSwipeDragDropListener.onItemClicked(val, position);
+        }
+    }
+
+    protected void openItem(int position) {
+        mSwipeManager.openItem(position);
+    }
+
+    protected void closeItem(int position) {
+        mSwipeManager.closeItem(position);
+    }
+
+    protected void closeAllExcept(SwipeLayout layout) {
+        mSwipeManager.closeAllExcept(layout);
+    }
+
+    protected void closeAllItems() {
+        mSwipeManager.closeAllItems();
+    }
+
+    protected List<Integer> getOpenItems() {
+        return mSwipeManager.getOpenItems();
+    }
+
+    protected void setMode(Attributes.Mode mode) {
+        mSwipeManager.setMode(mode);
     }
 
     @Override
@@ -176,51 +215,5 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Override
     public void notifyDatasetChanged() {notifyDataSetChanged();}
 
-    @Override
-    public void openItem(int position) {
-        mSwipeManager.openItem(position);
-    }
 
-    @Override
-    public void closeItem(int position) {
-        mSwipeManager.closeItem(position);
-    }
-
-    @Override
-    public void closeAllExcept(SwipeLayout layout) {
-        mSwipeManager.closeAllExcept(layout);
-    }
-
-    @Override
-    public void closeAllItems() {
-        mSwipeManager.closeAllItems();
-    }
-
-    @Override
-    public List<Integer> getOpenItems() {
-        return mSwipeManager.getOpenItems();
-    }
-
-    @Override
-    public List<SwipeLayout> getOpenLayouts() {
-        return mSwipeManager.getOpenLayouts();
-    }
-
-    @Override
-    public void removeShownLayouts(SwipeLayout layout) {mSwipeManager.removeShownLayouts(layout);}
-
-    @Override
-    public boolean isOpen(int position) {
-        return mSwipeManager.isOpen(position);
-    }
-
-    @Override
-    public Attributes.Mode getMode() {
-        return mSwipeManager.getMode();
-    }
-
-    @Override
-    public void setMode(Attributes.Mode mode) {
-        mSwipeManager.setMode(mode);
-    }
 }

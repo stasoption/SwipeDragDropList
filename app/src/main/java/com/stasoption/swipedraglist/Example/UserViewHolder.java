@@ -13,23 +13,21 @@ import com.stasoption.swipedraglist.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder{
 
-    CardView cvSurface;
-    CardView cvButton_1, cvButton_2;
+    CardView mSurface;
+    CardView mButton_1, mButton_2;
 
-    TextView tvCounter, tvTitle, tvTitleDescription, tvSubTitleDescription, tvStatus;
+    TextView tvNumber, tvName, tvAge, tvEmail, tvStatus;
 
     UserViewHolder(View itemView) {
         super(itemView);
+        mSurface = itemView.findViewById(R.id.cardView);
+        mButton_1 = itemView.findViewById(R.id.cvButton_1);
+        mButton_2 = itemView.findViewById(R.id.cvButton_2);
 
-        tvCounter = itemView.findViewById(R.id.tvCounter);
-        tvTitle = itemView.findViewById(R.id.tvTitle);
-        tvTitleDescription = itemView.findViewById(R.id.tvTitleDescription);
-        tvSubTitleDescription = itemView.findViewById(R.id.tvSubTitleDescription);
+        tvNumber = itemView.findViewById(R.id.tvCounter);
+        tvName = itemView.findViewById(R.id.tvTitle);
+        tvAge = itemView.findViewById(R.id.tvTitleDescription);
+        tvEmail = itemView.findViewById(R.id.tvSubTitleDescription);
         tvStatus = itemView.findViewById(R.id.tvStatus);
-
-
-        cvSurface = itemView.findViewById(R.id.cardView);
-        cvButton_1 = itemView.findViewById(R.id.cvButton_1);
-        cvButton_2 = itemView.findViewById(R.id.cvButton_2);
     }
 }

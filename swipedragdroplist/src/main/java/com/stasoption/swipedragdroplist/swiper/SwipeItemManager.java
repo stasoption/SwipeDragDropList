@@ -1,5 +1,7 @@
 package com.stasoption.swipedragdroplist.swiper;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,12 +9,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.stasoption.swipedragdroplist.intefaces.SwipeAdapterInterface;
+import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeItemMangerInterface;
 
-
-/**
- * Created by Stas on 12.04.2017.
- */
 
 public class SwipeItemManager implements SwipeItemMangerInterface {
 
@@ -24,13 +23,16 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
     private Set<Integer> mOpenPositions = new HashSet<>();
     private Set<SwipeLayout> mShownLayouts = new HashSet<>();
 
-    private SwipeAdapterInterface swipeAdapterInterface;
+    @Nullable
+    private SwipeAdapterInterface mSwipeAdapterInterface;
+    @Nullable
+    private SwipeDragDropListener mSwipeDragDropListener;
 
-    public SwipeItemManager(SwipeAdapterInterface swipeAdapterInterface) {
+    public SwipeItemManager(@Nullable SwipeAdapterInterface swipeAdapterInterface) {
         if (swipeAdapterInterface == null)
             throw new IllegalArgumentException("SwipeAdapterInterface can not be null");
 
-        this.swipeAdapterInterface = swipeAdapterInterface;
+        this.mSwipeAdapterInterface = swipeAdapterInterface;
     }
 
     public Attributes.Mode getMode() {
@@ -42,6 +44,10 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
         mOpenPositions.clear();
         mShownLayouts.clear();
         mOpenPosition = INVALID_POSITION;
+    }
+
+    public void setSwipeDragDropListener(@Nullable SwipeDragDropListener swipeDragDropListener){
+        this.mSwipeDragDropListener = swipeDragDropListener;
     }
 
     public void bind(SwipeLayout swipeLayout, int position) throws Exception{
@@ -69,7 +75,13 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
         } else {
             mOpenPosition = position;
         }
-        swipeAdapterInterface.notifyDatasetChanged();
+        if (mSwipeAdapterInterface != null) {
+            mSwipeAdapterInterface.notifyDatasetChanged();
+        }
+
+        if(mSwipeDragDropListener != null){
+            mSwipeDragDropListener.onItemOpened(position);
+        }
     }
 
     @Override
@@ -80,7 +92,13 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
             if (mOpenPosition == position)
                 mOpenPosition = INVALID_POSITION;
         }
-        swipeAdapterInterface.notifyDatasetChanged();
+        if (mSwipeAdapterInterface != null) {
+            mSwipeAdapterInterface.notifyDatasetChanged();
+        }
+
+        if(mSwipeDragDropListener != null){
+            mSwipeDragDropListener.onItemClosed(position);
+        }
     }
 
     @Override
@@ -181,6 +199,10 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
             } else {
                 mOpenPosition = INVALID_POSITION;
             }
+
+            if(mSwipeDragDropListener != null){
+                mSwipeDragDropListener.onItemClosed(position);
+            }
         }
 
         @Override
@@ -197,6 +219,10 @@ public class SwipeItemManager implements SwipeItemMangerInterface {
             else {
                 closeAllExcept(layout);
                 mOpenPosition = position;
+            }
+
+            if(mSwipeDragDropListener != null){
+                mSwipeDragDropListener.onItemOpened(position);
             }
         }
 
