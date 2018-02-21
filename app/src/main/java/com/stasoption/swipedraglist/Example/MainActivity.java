@@ -20,6 +20,7 @@ import com.stasoption.swipedraglist.Model.User;
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<User> {
 
+    public static final String TAG = MainActivity.class.getSimpleName();
     private SwipeDragDropAdapter<User> mUserAdapter;
     private RecyclerView mRecyclerView;
 
@@ -28,15 +29,15 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         ArrayList<User> testUserArrayList = new ArrayList<>();
-        testUserArrayList.add(new User("Stas Averin", "averin.developer@gmail.com", 31, true));
-        testUserArrayList.add(new User("Steve Rogers", "cwilliams@gmail.com", 29, false));
-        testUserArrayList.add(new User("Peter Parker", "pete@gmail.com", 21, false));
-        testUserArrayList.add(new User("Natasha Romanoff",  "pwong@gmail.com", 28, true));
-        testUserArrayList.add(new User("Tony Stark", "bmartinez@gmail.com", 45, false));
-        testUserArrayList.add(new User("Bruce Banner", "ralph_washington@gmail.com", 41, true));
+        testUserArrayList.add(new User("Stas Averin", "averin.developer@gmail.com", "31 years", true));
+        testUserArrayList.add(new User("Steve Rogers", "cwilliams@gmail.com", "29 years", false));
+        testUserArrayList.add(new User("Peter Parker", "pete@gmail.com", "21 years", false));
+        testUserArrayList.add(new User("Natasha Romanoff",  "pwong@gmail.com", "28 years", true));
+        testUserArrayList.add(new User("Tony Stark", "bmartinez@gmail.com", "45 years", false));
+        testUserArrayList.add(new User("Bruce Banner", "ralph_washington@gmail.com", "41 years", true));
 
 
         mUserAdapter = new SwipeDragDropAdapter<User>(testUserArrayList) {
@@ -68,14 +69,22 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                 try {
                     holder.tvNumber.setText(String.valueOf(position + 1));
                     holder.tvName.setText(user.getName());
-                    holder.tvAge.setText(String.valueOf(user.getAge()).concat(" years"));
+                    holder.tvAge.setText(user.getAge());
                     holder.tvEmail.setText(user.getMail());
                     holder.tvStatus.setTextColor(user.getStatus() ? Color.BLUE :Color.RED);
                     holder.tvStatus.setText(user.getStatus() ? R.string.text_online : R.string.text_offline);
 
-                    holder.mSurface.setOnClickListener(v -> {});
-                    holder.mButton_1.setOnClickListener(v -> {closeAllItems();});
-                    holder.mButton_2.setOnClickListener(v -> {closeAllItems();});
+                    holder.mSurface.setOnClickListener(v -> {
+//                        onItemClicked(user, position);
+                    });
+                    holder.mBottomBtn_1.setOnClickListener(v -> {
+                        closeAllItems();
+                        Log.d(TAG, position + ". " + user.getName());
+                    });
+                    holder.mBottomBtn_2.setOnClickListener(v -> {
+                        closeAllItems();
+                        Log.d(TAG, position + ". " + user.getName());
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

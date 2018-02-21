@@ -14,15 +14,15 @@ import com.stasoption.swipedraglist.R;
 public class UserViewHolder extends RecyclerView.ViewHolder{
 
     CardView mSurface;
-    CardView mButton_1, mButton_2;
+    CardView mBottomBtn_1, mBottomBtn_2;
 
     TextView tvNumber, tvName, tvAge, tvEmail, tvStatus;
 
     UserViewHolder(View itemView) {
         super(itemView);
         mSurface = itemView.findViewById(R.id.cardView);
-        mButton_1 = itemView.findViewById(R.id.cvButton_1);
-        mButton_2 = itemView.findViewById(R.id.cvButton_2);
+        mBottomBtn_1 = itemView.findViewById(R.id.cvButton_1);
+        mBottomBtn_2 = itemView.findViewById(R.id.cvButton_2);
 
         tvNumber = itemView.findViewById(R.id.tvCounter);
         tvName = itemView.findViewById(R.id.tvTitle);

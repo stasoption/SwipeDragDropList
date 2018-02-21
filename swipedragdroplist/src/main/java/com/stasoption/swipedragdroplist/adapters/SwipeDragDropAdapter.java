@@ -80,9 +80,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
             swipeLayout.addView(bottomView);
             swipeLayout.addView(surfaceView);
-
             swipeLayout.setDrag(SwipeLayout.DragEdge.Right, bottomView);
-
         }catch (Exception e){
             onExceptionReceived(e);
         }
@@ -99,18 +97,17 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
             SwipeLayout swipeLayout = mSwipeLayouts.get(position);
-
-//            swipeLayout.setOnClickListener((v) ->{
-//                try {
-//                    T val = mData.get(position);
-//                    onClickItem(val, position);
-//                }catch (Exception e){
-//                    onClickItem(null, position);
-//                }
-//            });
-
             mSwipeManager.bind(swipeLayout, position);
             onBindData(holder, mData.get(position), position);
+
+            swipeLayout.setOnClickListener((v) ->{
+                try {
+                    T val = mData.get(position);
+                    onClickItem(val, position);
+                }catch (Exception e){
+                    onClickItem(null, position);
+                }
+            });
         }catch (Exception e){
             onExceptionReceived(e);
         }
