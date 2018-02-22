@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<Avenger> {
 
-    private SwipeDragDropAdapter<Avenger> mUserAdapter;
+    private SwipeDragDropAdapter<Avenger> mAvengerAdapter;
 
     private List<Avenger> mAvengers = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
 
         PreferencesManager.init(this);
 
-        mUserAdapter = new SwipeDragDropAdapter<Avenger>() {
+        mAvengerAdapter = new SwipeDragDropAdapter<Avenger>() {
             @NonNull
             @Override
             public Context setContext() {
@@ -57,32 +57,32 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
 
             @Override
             public RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView) {
-                return new UserViewHolder(swipeView);
+                return new AvangerViewHolder(swipeView);
             }
 
             @Override
             public void onBindData(@NonNull RecyclerView.ViewHolder holder, Avenger val, int position) {
-                UserViewHolder userViewHolder = (UserViewHolder) holder;
+                AvangerViewHolder avangerViewHolder = (AvangerViewHolder) holder;
                 try {
                     Picasso.with(MainActivity.this)
                             .load(val.getAvatar())
-                            .into(userViewHolder.mAvatar);
+                            .into(avangerViewHolder.mAvatar);
 
-                    userViewHolder.tvName.setText(val.getName());
-                    userViewHolder.tvEmail.setText(val.getMail());
-                    userViewHolder.tvStatus.setTextColor(val.getStatus() ? Color.BLUE :Color.RED);
-                    userViewHolder.tvStatus.setText(val.getStatus() ? R.string.text_online : R.string.text_offline);
+                    avangerViewHolder.tvName.setText(val.getName());
+                    avangerViewHolder.tvEmail.setText(val.getMail());
+                    avangerViewHolder.tvStatus.setTextColor(val.getStatus() ? Color.BLUE :Color.RED);
+                    avangerViewHolder.tvStatus.setText(val.getStatus() ? R.string.text_online : R.string.text_offline);
 
-                    userViewHolder.mSurface.setOnClickListener(v -> {
+                    avangerViewHolder.mSurface.setOnClickListener(v -> {
                         closeAllItems();
                         onItemClicked(val, position);
                     });
-                    userViewHolder.mBottomBtn_1.setOnClickListener(v -> {
+                    avangerViewHolder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
                         Log.d("Call", val.getName());
                         Toast.makeText(MainActivity.this, "Call " +  val.getName(), Toast.LENGTH_SHORT).show();
                     });
-                    userViewHolder.mBottomBtn_2.setOnClickListener(v -> {
+                    avangerViewHolder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
                         Log.d("Mail", val.getName());
                         Toast.makeText(MainActivity.this, "Mail " +  val.getName(), Toast.LENGTH_SHORT).show();
@@ -98,26 +98,26 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
-//        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
-//        mUserAdapter.setSwipeTo(SwipeDragDropAdapter.Swipe.LEFT);
+//        mAvengerAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
+//        mAvengerAdapter.setSwipeTo(SwipeDragDropAdapter.Swipe.LEFT);
 
-        mUserAdapter.bindToRecyclerView(recyclerView);
-        mUserAdapter.setSwipeDragDropListener(this);
+        mAvengerAdapter.bindToRecyclerView(recyclerView);
+        mAvengerAdapter.setSwipeDragDropListener(this);
     }
 
     @Override
     protected void onPause() {
             super.onPause();
-        mAvengers = mUserAdapter.getList();
+        mAvengers = mAvengerAdapter.getList();
         PreferencesManager.getInstance().saveAvengers(mAvengers);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mUserAdapter != null){
+        if(mAvengerAdapter != null){
             mAvengers = PreferencesManager.getInstance().getAvengers();
-            mUserAdapter.setList(mAvengers);
+            mAvengerAdapter.setList(mAvengers);
         }
     }
 
@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
 
     @Override
     public void onItemOpened(int position) {
-        Log.d("onItemOpened", position + ". " + mUserAdapter.getItem(position).getName());
+        Log.d("onItemOpened", position + ". " + mAvengerAdapter.getItem(position).getName());
     }
 
     @Override
     public void onItemClosed(int position) {
-        Log.d("onItemClosed", position + ". " + mUserAdapter.getItem(position).getName());
+        Log.d("onItemClosed", position + ". " + mAvengerAdapter.getItem(position).getName());
     }
 
     @Override
