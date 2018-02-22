@@ -13,7 +13,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @author Stas Averin
  */
 
-public class UserViewHolder extends RecyclerView.ViewHolder{
+public class AvangerViewHolder extends RecyclerView.ViewHolder{
 
     CardView mSurface;
     CardView mBottomBtn_1, mBottomBtn_2;
@@ -21,7 +21,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
     de.hdodenhof.circleimageview.CircleImageView mAvatar;
     TextView tvName, tvEmail, tvStatus;
 
-    UserViewHolder(View itemView) {
+    AvangerViewHolder(View itemView) {
         super(itemView);
         mSurface = itemView.findViewById(R.id.cardView);
         mBottomBtn_1 = itemView.findViewById(R.id.cvButton_1);
