@@ -35,27 +35,9 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
         setContentView(R.layout.activity_main);
 
         PreferencesManager.init(this);
-
         mRecyclerView = findViewById(R.id.recycler_view);
-    }
-    
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mAvengers = mUserAdapter.getData();
-        PreferencesManager.getInstance().saveAvengers(mAvengers);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mAvengers = PreferencesManager.getInstance().getAvengers();
-        updateAvengers(mAvengers);
-    }
-
-
-    private void updateAvengers(List<Avenger> avengers){
-        mUserAdapter = new SwipeDragDropAdapter<Avenger>(avengers) {
+        mUserAdapter = new SwipeDragDropAdapter<Avenger>() {
 
             @NonNull
             @Override
@@ -117,6 +99,23 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
         mUserAdapter.bindToRecyclerView(mRecyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }
+
+    @Override
+    protected void onPause() {
+            super.onPause();
+        mAvengers = mUserAdapter.getList();
+        PreferencesManager.getInstance().saveAvengers(mAvengers);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mUserAdapter != null){
+            mAvengers = PreferencesManager.getInstance().getAvengers();
+            mUserAdapter.setList(mAvengers);
+        }
+    }
+
 
     @Override
     public void onItemClicked(@Nullable Avenger val, int position) {

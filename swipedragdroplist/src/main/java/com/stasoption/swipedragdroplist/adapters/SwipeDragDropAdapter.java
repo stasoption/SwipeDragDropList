@@ -32,7 +32,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @NonNull
     private Context mContext;
     @NonNull
-    private List<T> mData;
+    private List<T> mData = new ArrayList<>();
     @NonNull
     private List<SwipeLayout> mSwipeLayouts;
     @Nullable
@@ -53,11 +53,16 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     public abstract void onExceptionReceived(Exception e);
 
-    protected SwipeDragDropAdapter(@NonNull List<T> items){
-        this.mData = items;
+    protected SwipeDragDropAdapter(@NonNull List<T> data){
         this.mSwipeLayouts = new ArrayList<>(mData.size());
         this.mContext = setContext();
+        mSwipeManager.setMode(Mode.SINGLE);
+        setList(data);
+    }
 
+    protected SwipeDragDropAdapter(){
+        this.mSwipeLayouts = new ArrayList<>(mData.size());
+        this.mContext = setContext();
         mSwipeManager.setMode(Mode.SINGLE);
     }
 
@@ -110,13 +115,13 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
 
-    public void setData(@NonNull ArrayList<T> data){
+    public void setList(@NonNull List<T> data){
         mData = data;
         this.notifyDataSetChanged();
     }
 
     @NonNull
-    public List<T> getData(){
+    public List<T> getList(){
         return this.mData;
     }
 
