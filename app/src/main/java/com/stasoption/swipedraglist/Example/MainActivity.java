@@ -14,21 +14,48 @@ import com.squareup.picasso.Picasso;
 import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedraglist.Model.Avenger;
+import com.stasoption.swipedraglist.PreferencesManager;
 import com.stasoption.swipedraglist.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<Avenger> {
 
+    private RecyclerView mRecyclerView;
+
     private SwipeDragDropAdapter<Avenger> mUserAdapter;
+
+    private List<Avenger> mAvengers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        PreferencesManager.init(this);
 
-        mUserAdapter = new SwipeDragDropAdapter<Avenger>(Avenger.getAvengers()) {
+        mRecyclerView = findViewById(R.id.recycler_view);
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAvengers = mUserAdapter.getData();
+        PreferencesManager.getInstance().saveAvengers(mAvengers);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAvengers = PreferencesManager.getInstance().getAvengers();
+        updateAvengers(mAvengers);
+    }
+
+
+    private void updateAvengers(List<Avenger> avengers){
+        mUserAdapter = new SwipeDragDropAdapter<Avenger>(avengers) {
 
             @NonNull
             @Override
@@ -87,8 +114,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
-//        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
-        mUserAdapter.bindToRecyclerView(recyclerView);
+        mUserAdapter.bindToRecyclerView(mRecyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }
 
