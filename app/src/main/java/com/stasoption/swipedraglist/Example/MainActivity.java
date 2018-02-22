@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
@@ -78,11 +79,13 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                     });
                     userViewHolder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 1 clicked", position + ". " + val.getName());
+                        Log.d("Call", val.getName());
+                        Toast.makeText(MainActivity.this, "Call " +  val.getName(), Toast.LENGTH_SHORT).show();
                     });
                     userViewHolder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 2 clicked", position + ". " + val.getName());
+                        Log.d("Mail", val.getName());
+                        Toast.makeText(MainActivity.this, "Mail " +  val.getName(), Toast.LENGTH_SHORT).show();
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                 e.printStackTrace();
             }
         };
+
+//        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
+//        mUserAdapter.setSwipeTo(SwipeDragDropAdapter.Swipe.LEFT);
 
         mUserAdapter.bindToRecyclerView(recyclerView);
         mUserAdapter.setSwipeDragDropListener(this);

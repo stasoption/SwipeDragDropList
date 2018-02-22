@@ -23,6 +23,8 @@ import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
 import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
+import static com.stasoption.swipedragdroplist.swiper.SwipeLayout.*;
+
 
 /**
  * @author Stas Averin
@@ -40,6 +42,8 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     private SwipeDragDropListener mSwipeDragDropListener;
 
     private final SwipeItemManager mSwipeManager = new SwipeItemManager();
+
+    private DragEdge mSwipeTo = DragEdge.Right;
 
     @NonNull
     public abstract Context setContext();
@@ -85,7 +89,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
             swipeLayout.addView(bottomView);
             swipeLayout.addView(surfaceView);
-            swipeLayout.setDrag(SwipeLayout.DragEdge.Right, bottomView);
+            swipeLayout.setDrag(mSwipeTo, bottomView);
         }catch (Exception e){
             onExceptionReceived(e);
         }
@@ -160,6 +164,23 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     public void setMode(Mode mode) {
         mSwipeManager.setMode(mode);
+        this.notifyDataSetChanged();
+    }
+
+    public void setSwipeTo(Swipe swipeTo){
+        switch (swipeTo){
+            case LEFT:
+                mSwipeTo = DragEdge.Left;
+                break;
+
+            case RIGHT:
+                mSwipeTo = DragEdge.Right;
+                break;
+
+            default:
+                setSwipeTo(Swipe.RIGHT);
+        }
+        this.notifyDataSetChanged();
     }
 
     @SuppressWarnings("unchecked")
@@ -199,5 +220,12 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         SINGLE, /*must showing just one item*/
 
         MULTIPLE /*mode when same time showing several items*/
+    }
+
+    public enum Swipe {
+
+        LEFT,
+
+        RIGHT
     }
 }
