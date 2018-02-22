@@ -14,14 +14,10 @@ Several | Single
 ![alt tag](https://media.giphy.com/media/QfGO9qSSqpP0fly0ht/giphy.gif) | ![alt tag](https://media.giphy.com/media/21GEOR4sNdE5iqWXQf/giphy.gif)
 
 
-
-
-
-
 ## Usage
 ```
           
-        SwipeDragDropAdapter<Avenger> mAvengerAdapter = new SwipeDragDropAdapter<Avenger>() {
+        SwipeDragDropAdapter<Avenger> avengerAdapter = new SwipeDragDropAdapter<Avenger>() {
             @NonNull
             @Override
             public Context setContext() {
@@ -60,6 +56,53 @@ Several | Single
 ... finally, bind our adapter to our RecyclerView
 
 ```
-    mAvengerAdapter.bindToRecyclerView(recyclerView);
+    avengerAdapter.bindToRecyclerView(recyclerView);
 
+```
+
+**Custom parameters**<br />
+
+Mode when swiping. Mode.SINGLE - showing just one item, Mode.MULTIPLE - mode when same time showing several items
+
+          setMode(Mode mode); 
+          
+in which side to swiping, Swipe.LEFT or Swipe.RIGHT  
+
+          setSwipeTo(Swipe swipeTo)
+          
+**Interface**<br />   
+
+Listening when user did some events
+
+          SwipeDragDropListener<T>{
+          
+                    void onItemClicked(@Nullable T val,  int position);
+
+                    void onItemOpened(int position);
+
+                    void onItemClosed(int position);
+
+                    void onItemDragged(int from, int to);
+          }
+          
+          
+## How to add
+
+**Gradle**<br />
+
+```
+      dependencies {
+            compile 'com.github.stasoption:swipedraglist:1.0.1'
+      }
+```
+
+**Maven**<br />
+
+```
+      <dependency>
+          <groupId>com.github.stasoption</groupId>
+          <artifactId>swipedraglist</artifactId>
+          <version>1.0.1</version>
+          <type>pom</type>
+      </dependency>
 ```
