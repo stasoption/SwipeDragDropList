@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,15 +70,18 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View surfaceView = getView(setSurfaceView(), null);
-        View bottomView = getView(setBottomView(), null);
         SwipeLayout  swipeLayout = (SwipeLayout) getView(R.layout.layout_swipe, parent);
         if(swipeLayout == null){
             swipeLayout = new SwipeLayout(mContext);
         }
+
+        swipeLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
         try {
-            swipeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            View surfaceView = getView(setSurfaceView(), swipeLayout);
+            View bottomView = getView(setBottomView(), swipeLayout);
 
             swipeLayout.addView(bottomView);
             swipeLayout.addView(surfaceView);
