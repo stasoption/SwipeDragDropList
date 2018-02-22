@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_wrapper"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_gravity="end"
     android:focusableInTouchMode="false"
     android:clickable="false"
     android:focusable="false">
@@ -20,10 +23,11 @@
             android:background="@color/color_option_2">
             <ImageView
                 style="@style/DragDropIcon"
-                android:src="@android:drawable/ic_menu_call"
-                android:id="@+id/img_button_1_go_to_sender_or_getter"/>
+                app:srcCompat="@drawable/ic_call_white"
+                android:id="@+id/img_button_1_go_to_sender_or_getter"
+                tools:ignore="ContentDescription"/>
             <TextView
-                android:text="Action #1"
+                android:text="Call"
                 android:id="@+id/tv_button_1_go_to_sender_or_getter"
                 style="@style/DragDropTextView"/>
         </LinearLayout>
@@ -40,11 +44,12 @@
             android:background="@color/color_option_2">
             <ImageView
                 style="@style/DragDropIcon"
-                android:src="@android:drawable/ic_dialog_email"
-                android:id="@+id/img_button_2_go_to_sender_or_getter"/>
+                app:srcCompat="@drawable/ic_postwhite"
+                android:id="@+id/img_button_2_go_to_sender_or_getter"
+                tools:ignore="ContentDescription"/>
             <TextView
                 style="@style/DragDropTextView"
-                android:text="Action #2"
+                android:text="Email"
                 android:id="@+id/tv_button_2_go_to_sender_or_getter"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>

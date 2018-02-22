@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
 
             @Override
-            public RecyclerView.ViewHolder setViewHolder(View view) {
+            public RecyclerView.ViewHolder setViewHolder(@NonNull View view) {
                 return new UserViewHolder(view);
             }
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder h, Avenger avenger, int position) {
+            public void onBindData(@NonNull RecyclerView.ViewHolder h, Avenger avenger, int position) {
                 UserViewHolder holder = (UserViewHolder) h;
                 try {
                     Picasso.with(MainActivity.this)
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                             .into(holder.mAvatar);
 
                     holder.tvName.setText(avenger.getName());
-                    holder.tvAge.setText(avenger.getAge());
                     holder.tvEmail.setText(avenger.getMail());
                     holder.tvStatus.setTextColor(avenger.getStatus() ? Color.BLUE :Color.RED);
                     holder.tvStatus.setText(avenger.getStatus() ? R.string.text_online : R.string.text_offline);
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
-        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
+//        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
         mUserAdapter.bindToRecyclerView(recyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }

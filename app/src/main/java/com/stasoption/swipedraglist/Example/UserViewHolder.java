@@ -19,7 +19,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
     CardView mBottomBtn_1, mBottomBtn_2;
 
     de.hdodenhof.circleimageview.CircleImageView mAvatar;
-    TextView tvName, tvAge, tvEmail, tvStatus;
+    TextView tvName, tvEmail, tvStatus;
 
     UserViewHolder(View itemView) {
         super(itemView);
@@ -29,7 +29,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
 
         mAvatar = itemView.findViewById(R.id.tvAvatar);
         tvName = itemView.findViewById(R.id.tvTitle);
-        tvAge = itemView.findViewById(R.id.tvTitleDescription);
         tvEmail = itemView.findViewById(R.id.tvSubTitleDescription);
         tvStatus = itemView.findViewById(R.id.tvStatus);
     }

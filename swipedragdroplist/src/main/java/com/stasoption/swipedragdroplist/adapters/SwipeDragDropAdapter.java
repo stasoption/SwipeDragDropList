@@ -47,9 +47,9 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
     public abstract int setBottomView();
 
-    public abstract RecyclerView.ViewHolder setViewHolder(View view);
+    public abstract RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView);
 
-    public abstract void onBindData(RecyclerView.ViewHolder holder, T val, int position);
+    public abstract void onBindData(@NonNull RecyclerView.ViewHolder holder, T val, int position);
 
     public abstract void onExceptionReceived(Exception e);
 
@@ -62,7 +62,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View surfaceView = getView(setSurfaceView(), null);
         View bottomView = getView(setBottomView(), null);
@@ -86,7 +86,7 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         try {
             SwipeLayout swipeLayout = mSwipeLayouts.get(position);
             mSwipeManager.bind(swipeLayout, position);
@@ -109,18 +109,21 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
         mSwipeManager.setSwipeDragDropListener(swipeDragDropListener);
     }
 
-    @Override
-    public int getItemCount() {
-        return this.mData.size();
-    }
-
-    public List<T> getList(){
-        return this.mData;
-    }
 
     public void setData(@NonNull ArrayList<T> data){
         mData = data;
         this.notifyDataSetChanged();
+    }
+
+    @NonNull
+    public List<T> getData(){
+        return this.mData;
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return this.mData.size();
     }
 
     public T getItem(int position){

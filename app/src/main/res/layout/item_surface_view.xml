@@ -38,7 +38,8 @@
                 android:layout_marginLeft="16dp"
                 android:gravity="center"
                 app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
+                app:civ_border_color="#FF000000"
+                tools:ignore="RtlHardcoded"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -47,29 +48,15 @@
                 android:layout_weight="1">
 
                 <!--TITLE-->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    tools:ignore="RtlHardcoded">
-
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:text="Some title"/>
-
-                    <TextView
-                        android:id="@+id/tvTitleDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="10sp"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-                </LinearLayout>
-
+                    tools:text="Some title"
+                    tools:ignore="RtlHardcoded"/>
 
                 <!--SUB TITLE-->
                 <LinearLayout
@@ -77,14 +64,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    tools:ignore="RtlHardcoded">
 
 
                     <TextView
                         android:id="@+id/tvSubTitleDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sub Title description"/>
+                        tools:text="Sub Title description"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -95,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_green_dark"
                 android:padding="@dimen/mid_margin"
-                android:text="Online"/>
+                tools:text="Online"/>
         </LinearLayout>
         <!--end content for SurfaceView-->
     </android.support.v7.widget.CardView>
