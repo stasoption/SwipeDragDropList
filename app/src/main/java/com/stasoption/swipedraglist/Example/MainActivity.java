@@ -23,8 +23,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<Avenger> {
 
-    private RecyclerView mRecyclerView;
-
     private SwipeDragDropAdapter<Avenger> mUserAdapter;
 
     private List<Avenger> mAvengers = new ArrayList<>();
@@ -32,13 +30,14 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
         PreferencesManager.init(this);
-        mRecyclerView = findViewById(R.id.recycler_view);
 
         mUserAdapter = new SwipeDragDropAdapter<Avenger>() {
-
             @NonNull
             @Override
             public Context setContext() {
@@ -56,34 +55,34 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
 
             @Override
-            public RecyclerView.ViewHolder setViewHolder(@NonNull View view) {
-                return new UserViewHolder(view);
+            public RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView) {
+                return new UserViewHolder(swipeView);
             }
 
             @Override
-            public void onBindData(@NonNull RecyclerView.ViewHolder h, Avenger avenger, int position) {
-                UserViewHolder holder = (UserViewHolder) h;
+            public void onBindData(@NonNull RecyclerView.ViewHolder holder, Avenger val, int position) {
+                UserViewHolder userViewHolder = (UserViewHolder) holder;
                 try {
                     Picasso.with(MainActivity.this)
-                            .load(avenger.getAvatar())
-                            .into(holder.mAvatar);
+                            .load(val.getAvatar())
+                            .into(userViewHolder.mAvatar);
 
-                    holder.tvName.setText(avenger.getName());
-                    holder.tvEmail.setText(avenger.getMail());
-                    holder.tvStatus.setTextColor(avenger.getStatus() ? Color.BLUE :Color.RED);
-                    holder.tvStatus.setText(avenger.getStatus() ? R.string.text_online : R.string.text_offline);
+                    userViewHolder.tvName.setText(val.getName());
+                    userViewHolder.tvEmail.setText(val.getMail());
+                    userViewHolder.tvStatus.setTextColor(val.getStatus() ? Color.BLUE :Color.RED);
+                    userViewHolder.tvStatus.setText(val.getStatus() ? R.string.text_online : R.string.text_offline);
 
-                    holder.mSurface.setOnClickListener(v -> {
+                    userViewHolder.mSurface.setOnClickListener(v -> {
                         closeAllItems();
-                        onItemClicked(avenger, position);
+                        onItemClicked(val, position);
                     });
-                    holder.mBottomBtn_1.setOnClickListener(v -> {
+                    userViewHolder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 1 clicked", position + ". " + avenger.getName());
+                        Log.d("Button 1 clicked", position + ". " + val.getName());
                     });
-                    holder.mBottomBtn_2.setOnClickListener(v -> {
+                    userViewHolder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 2 clicked", position + ". " + avenger.getName());
+                        Log.d("Button 2 clicked", position + ". " + val.getName());
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
-        mUserAdapter.bindToRecyclerView(mRecyclerView);
+        mUserAdapter.bindToRecyclerView(recyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }
 

@@ -7,7 +7,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
 
 
 /**
- * Created by Stas on 12.04.2017.
+ * @author Stas Averin
  */
 
 public interface SwipeItemMangerInterface {

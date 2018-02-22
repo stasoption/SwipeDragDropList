@@ -17,7 +17,7 @@ import java.util.List;
 
 import com.stasoption.swipedragdroplist.R;
 import com.stasoption.swipedragdroplist.drager.GenericTouchHelper;
-import com.stasoption.swipedragdroplist.intefaces.OnDragDropListener;
+import com.stasoption.swipedragdroplist.intefaces.DragDropListener;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedragdroplist.swiper.SwipeItemManager;
 import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
@@ -27,7 +27,7 @@ import com.stasoption.swipedragdroplist.swiper.SwipeLayout;
  * @author Stas Averin
  */
 
-public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnDragDropListener{
+public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements DragDropListener {
 
     @NonNull
     private Context mContext;

@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.orhanobut.hawk.Hawk;
 import com.stasoption.swipedraglist.Model.Avenger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
