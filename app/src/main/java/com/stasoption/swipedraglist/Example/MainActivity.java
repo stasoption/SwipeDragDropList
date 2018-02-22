@@ -9,27 +9,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stasoption.swipedragdroplist.adapters.SwipeDragDropAdapter;
 import com.stasoption.swipedragdroplist.intefaces.SwipeDragDropListener;
 import com.stasoption.swipedraglist.Model.Avenger;
+import com.stasoption.swipedraglist.PreferencesManager;
 import com.stasoption.swipedraglist.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements SwipeDragDropListener<Avenger> {
 
     private SwipeDragDropAdapter<Avenger> mUserAdapter;
 
+    private List<Avenger> mAvengers = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        mUserAdapter = new SwipeDragDropAdapter<Avenger>(Avenger.getAvengers()) {
+        PreferencesManager.init(this);
 
+        mUserAdapter = new SwipeDragDropAdapter<Avenger>() {
             @NonNull
             @Override
             public Context setContext() {
@@ -47,35 +56,36 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
 
             @Override
-            public RecyclerView.ViewHolder setViewHolder(View view) {
-                return new UserViewHolder(view);
+            public RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView) {
+                return new UserViewHolder(swipeView);
             }
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder h, Avenger avenger, int position) {
-                UserViewHolder holder = (UserViewHolder) h;
+            public void onBindData(@NonNull RecyclerView.ViewHolder holder, Avenger val, int position) {
+                UserViewHolder userViewHolder = (UserViewHolder) holder;
                 try {
                     Picasso.with(MainActivity.this)
-                            .load(avenger.getAvatar())
-                            .into(holder.mAvatar);
+                            .load(val.getAvatar())
+                            .into(userViewHolder.mAvatar);
 
-                    holder.tvName.setText(avenger.getName());
-                    holder.tvAge.setText(avenger.getAge());
-                    holder.tvEmail.setText(avenger.getMail());
-                    holder.tvStatus.setTextColor(avenger.getStatus() ? Color.BLUE :Color.RED);
-                    holder.tvStatus.setText(avenger.getStatus() ? R.string.text_online : R.string.text_offline);
+                    userViewHolder.tvName.setText(val.getName());
+                    userViewHolder.tvEmail.setText(val.getMail());
+                    userViewHolder.tvStatus.setTextColor(val.getStatus() ? Color.BLUE :Color.RED);
+                    userViewHolder.tvStatus.setText(val.getStatus() ? R.string.text_online : R.string.text_offline);
 
-                    holder.mSurface.setOnClickListener(v -> {
+                    userViewHolder.mSurface.setOnClickListener(v -> {
                         closeAllItems();
-                        onItemClicked(avenger, position);
+                        onItemClicked(val, position);
                     });
-                    holder.mBottomBtn_1.setOnClickListener(v -> {
+                    userViewHolder.mBottomBtn_1.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 1 clicked", position + ". " + avenger.getName());
+                        Log.d("Call", val.getName());
+                        Toast.makeText(MainActivity.this, "Call " +  val.getName(), Toast.LENGTH_SHORT).show();
                     });
-                    holder.mBottomBtn_2.setOnClickListener(v -> {
+                    userViewHolder.mBottomBtn_2.setOnClickListener(v -> {
                         closeAllItems();
-                        Log.d("Button 2 clicked", position + ". " + avenger.getName());
+                        Log.d("Mail", val.getName());
+                        Toast.makeText(MainActivity.this, "Mail " +  val.getName(), Toast.LENGTH_SHORT).show();
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -88,10 +98,29 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
             }
         };
 
-        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
+//        mUserAdapter.setMode(SwipeDragDropAdapter.Mode.MULTIPLE);
+//        mUserAdapter.setSwipeTo(SwipeDragDropAdapter.Swipe.LEFT);
+
         mUserAdapter.bindToRecyclerView(recyclerView);
         mUserAdapter.setSwipeDragDropListener(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAvengers = mUserAdapter.getList();
+        PreferencesManager.getInstance().saveAvengers(mAvengers);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mUserAdapter != null){
+            mAvengers = PreferencesManager.getInstance().getAvengers();
+            mUserAdapter.setList(mAvengers);
+        }
+    }
+
 
     @Override
     public void onItemClicked(@Nullable Avenger val, int position) {
@@ -113,6 +142,3 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
         Log.d("onItemDragged", from + ". " + to);
     }
 }
-
-
-

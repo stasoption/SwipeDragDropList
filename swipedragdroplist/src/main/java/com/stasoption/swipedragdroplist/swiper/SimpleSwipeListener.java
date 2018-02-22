@@ -1,7 +1,7 @@
 package com.stasoption.swipedragdroplist.swiper;
 
 /**
- * Created by Stas on 12.04.2017.
+ * @author Stas Averin
  */
 
 public class SimpleSwipeListener implements SwipeLayout.SwipeListener {
