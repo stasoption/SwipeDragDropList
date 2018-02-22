@@ -7,13 +7,16 @@ Custom adapter for RecyclerView.
 SwipeDragDropList knows how to swipe and Drag and drop his items. 
 All you need, specify layouts for cover and bottom view, also your ViewHolder.
 
-It has several mods for swiping and views. You can swipe single or several items same time, left or right
+It has several mods for swiping and views. You can swipe single or several items same time left or right
 
-![alt tag](https://media.giphy.com/media/QfGO9qSSqpP0fly0ht/giphy.gif)
+Several | Single
+------------ | -------------
+![alt tag](https://media.giphy.com/media/QfGO9qSSqpP0fly0ht/giphy.gif) | ![alt tag](https://media.giphy.com/media/21GEOR4sNdE5iqWXQf/giphy.gif)
 
-![alt tag](https://media.giphy.com/media/21GEOR4sNdE5iqWXQf/giphy.gif)
 
-![alt text](http://url/to/img.png)
+
+
+
 
 ## Usage
 ```
