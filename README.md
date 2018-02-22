@@ -3,9 +3,9 @@
 ## Demo
 ![alt tag](https://media.giphy.com/media/kFNOmzKEZI1u8sQZzo/giphy.gif)
 
-Custom adapter for RecyclerView.
+Custom adapter for RecyclerView. It uses code from  [SwipeLayout](https://github.com/daimajia/AndroidSwipeLayout).
 SwipeDragDrop knows how to swipe and Drag and drop his items. 
-All you need, specify layouts for cover and bottom view, also your ViewHolder.
+All you need, specify layouts for the surface view and the bottom view, also your ViewHolder.
 
 It has several mods for swiping and views. You can swipe single or several items same time left or right
 
