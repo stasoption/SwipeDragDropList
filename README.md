@@ -74,16 +74,20 @@ in which side to swiping, Swipe.LEFT or Swipe.RIGHT
 
 Listening when user did some events
 
-          SwipeDragDropListener<T>{
+```java
+
+          SwipeDragDropListener<T>{    
           
-                    void onItemClicked(@Nullable T val,  int position);
-
-                    void onItemOpened(int position);
-
-                    void onItemClosed(int position);
-
-                    void onItemDragged(int from, int to);
+              void onItemClicked(@Nullable T val,  int position);
+              
+              void onItemOpened(int position);
+              
+              void onItemClosed(int position);
+              
+              void onItemDragged(int from, int to);
           }
+
+```
           
           
 ## How to add
