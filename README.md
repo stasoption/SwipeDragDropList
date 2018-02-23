@@ -99,14 +99,3 @@ Listening when user did some events
             compile 'com.github.stasoption:swipedraglist:1.0.1'
       }
 ```
-
-**Maven**<br />
-
-```
-      <dependency>
-          <groupId>com.github.stasoption</groupId>
-          <artifactId>swipedraglist</artifactId>
-          <version>1.0.1</version>
-          <type>pom</type>
-      </dependency>
-```
