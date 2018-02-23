@@ -15,7 +15,7 @@ Several | Single
 
 
 ## Usage
-```
+```java
           
         SwipeDragDropAdapter<Avenger> avengerAdapter = new SwipeDragDropAdapter<Avenger>() {
             @NonNull
@@ -55,7 +55,7 @@ Several | Single
 
 ... finally, bind our adapter to our RecyclerView
 
-```
+```java
     avengerAdapter.bindToRecyclerView(recyclerView);
 
 ```
