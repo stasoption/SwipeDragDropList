@@ -96,6 +96,6 @@ Listening when user did some events
 
 ```
       dependencies {
-            compile 'com.github.stasoption:swipedraglist:1.0.1'
+            compile 'com.github.stasoption:swipedraglist:1.0.2'
       }
 ```
