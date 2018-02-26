@@ -9,9 +9,9 @@ All you need, specify layouts for the surface view and the bottom view, also you
 
 It has several mods for swiping and views. You can swipe single or several items same time left or right
 
-Several | Single
+Several/Right | Single/Left
 ------------ | -------------
-![alt tag](https://media.giphy.com/media/QfGO9qSSqpP0fly0ht/giphy.gif) | ![alt tag](https://media.giphy.com/media/21GEOR4sNdE5iqWXQf/giphy.gif)
+![alt tag](https://media.giphy.com/media/QfGO9qSSqpP0fly0ht/giphy.gif) | ![alt tag](https://media.giphy.com/media/i3ZfZOcN68CGP9z1bk/giphy.gif)
 
 
 ## Usage
