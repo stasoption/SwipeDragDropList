@@ -18,7 +18,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -61,7 +61,7 @@ publish {
     userOrg = 'whitepyramid'
     groupId = 'com.github.stasoption'
     artifactId = 'swipedraglist'
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     desc = 'Custom adapter for RecyclerView.'
     licences = ['MIT']
     website = 'https://github.com/stasoption/SwipeDragDropList'
