@@ -48,10 +48,13 @@ public abstract class SwipeDragDropAdapter<T> extends RecyclerView.Adapter<Recyc
     @NonNull
     public abstract Context setContext();
 
+    @LayoutRes
     public abstract int setSurfaceView();
 
+    @LayoutRes
     public abstract int setBottomView();
 
+    @NonNull
     public abstract RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView);
 
     public abstract void onBindData(@NonNull RecyclerView.ViewHolder holder, T val, int position);
