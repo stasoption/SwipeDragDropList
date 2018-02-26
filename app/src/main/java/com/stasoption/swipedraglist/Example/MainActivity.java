@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SwipeDragDropList
                 return R.layout.item_bottom_view;
             }
 
+            @NonNull
             @Override
             public RecyclerView.ViewHolder setViewHolder(@NonNull View swipeView) {
                 return new AvangerViewHolder(swipeView);
