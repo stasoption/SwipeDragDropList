@@ -42,7 +42,7 @@ Several/Right | Single/Left
             @Override
             public void onBindData(@NonNull RecyclerView.ViewHolder holder, Avenger val, int position) {
                 AvangerViewHolder avangerViewHolder = (AvangerViewHolder) holder;
-                // this your viewHolder logic...
+                // here your viewHolder logic...
             }
 
             @Override
